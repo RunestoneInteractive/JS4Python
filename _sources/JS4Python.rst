@@ -306,10 +306,45 @@ examples shown in the table we will use a string variable called “str”
         ``str.split(',')``       ``str.split(',')``      Split the string at ``','`` into a list/array of strings
              ``str + str``      ``str.concat(str)``                              Concatenate two strings together
            ``str.strip()``           ``str.trim()``                 Remove any whitespace at the beginning or end
+      ``str.replace(a,b)``     ``str.replace(a,b)``              Replace all occurances of a with b in string str
 ========================== ======================== =============================================================
 
+Let us look at a simple example that will illustrate a few of the string functions.  We will write a function that takes a string as a parameter and returns a new string with all of the vowels removed.
 
+.. activecode:: strrempy
 
+    def removeVowels(s):
+    vowels = "aeiouAEIOU"
+    sWithoutVowels = ""
+    for eachChar in s:
+        if eachChar not in vowels:
+            sWithoutVowels = sWithoutVowels + eachChar
+    return sWithoutVowels
+
+    print(removeVowels("compsci"))
+    print(removeVowels("aAbEefIijOopUus"))
+
+This is a pretty simple example of the accumulator pattern using strings.  We iterate over every character in the given string, if the character is not a vowel we concatenate it to create a new return string.  If the character is a vowel we ignore it and move on to the next.
+
+.. activecode:: strremjs
+    :language: javascript
+
+    function removeVowels(s) {
+        const vowels = "aeiouAEIOU";
+        let sWithoutVowels = "";
+        for (let eachChar of s) {
+            if (vowels.indexOf(eachChar) === -1) {
+                sWithoutVowels = sWithoutVowels + eachChar
+            }
+        }
+        return sWithoutVowels
+    }
+
+The Javascript version illustrates a few of the string methods and idioms and a few key differences.  First, to test whether one string contains another you have to use the ``indexOf`` string method. This method returns a number to indicate the position of the string passed as a parameter in the original string.  If the given string is not present indexOf ``returns`` -1.  The Javascript string index operator does not support negative index values so there is no confusion that -1 clearly means "not found."
+
+The second difference is the for loop.  We'll look in detail at the for loop later as there are many variations and subtle different kinds of for loops possible in Javascript.  ``for (let eachChar of s)`` is the best equivalent of the ``for eachChar in s`` used in python.  each time through the loop, eachChar takes on the value of the next char in the sequence. The use of let restricts the scope of eachChar to the loop, so once the loop is exited eachChar does not exist anymore.
+
+    
 Collections
 -----------
 
