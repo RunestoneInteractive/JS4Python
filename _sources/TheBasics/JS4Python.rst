@@ -248,32 +248,32 @@ simple example in both Python and Javascript.
 In Javascript we have a couple of ways to write this
 
 .. activecode:: javaelif
-   :language: javascript
-   :sourcefile: ElseIf.Javascript
+    :language: javascript
 
-   public class ElseIf {
-       public static void main(String args[]) {
-        int grade = 85;
+    main(85)
+    main(44)
+    main(98)
 
+    function main(grade) {
         if (grade < 60) {
             writeln('F');
         } else {
             if (grade < 70) {
-                writeln('F');
+                writeln('D');
             } else {
                 if (grade < 80) {
-                    writeln('F');
+                    writeln('C');
                 } else {
                     if (grade < 90) {
-                        writeln('F');
+                        writeln('B');
                     } else {
-                        writeln('F');
+                        writeln('A');
                     }
                 }
             }
         }
-      }
     }
+
 
 We can get even closer to the elif statement by taking advantage of the
 Javascript rule that a single statement does not need to be enclosed in curly
@@ -282,11 +282,12 @@ away with the following.
 
 .. activecode:: javaelif2
    :language: javascript
-   :sourcefile: ElseIf.Javascript
 
-   public class ElseIf {
-       public static void main(String args[]) {
-        int grade = 85;
+    main(85)
+    main(44)
+    main(98)
+
+    function main(grade) {
         if (grade < 60) {
             writeln('F');
         } else if (grade < 70) {
@@ -982,18 +983,82 @@ short arrays directly using the syntax shown on line 8. Then notice that
 on line 24 we can use the square bracket notation to index into an
 array.
 
-Dictionary
-----------
+Dictionary/Object
+-----------------
 
 Just as Python provides the dictionary when we want to have easy access
-to key, value pairs, Javascript also provides us a similar mechanism. Rather
-than the dictionary terminology, Javascript calls these objects Maps. Javascript
-provides two different implementations of a map, one is called the
-``TreeMap`` and the other is called a ``HashMap``. As you might guess
-the ``TreeMap`` uses a balanced binary tree behind the scenes, and the
-``HashMap`` uses a hash table.
+to key, value pairs, Javascript also provides us a similar mechanism.  In fact all objects in Javscript
 
-Lets stay with a simple frequency counting example, only this time we
+.. activecode:: jsdict
+    :language: javascript
+
+    let x = {}
+    x['foo'] = 'bar'
+    x[2] = 99
+    writeln(x)
+
+
+Some common operations from Python that you will want to know about include:
+
+* **Get all the keys**  In Python you do this as ``myDict.keys()`` in Javascript it requires a bit more effort:
+
+.. activecode:: jsdictkeys
+    :language: javascript
+
+    const myDict = {foo: "bar", baz: 22, 33: 'hello'};
+    const keys = Object.keys(myDict)
+    writeln(keys)
+
+* **Get all of the values** In Python this is ``myDict.values().``  But in Javascript it takes a lot more work.  Using a for loop you can do it like this:
+
+.. activecode:: jsdictvals1
+    :language: javascript
+
+    const myDict = {foo: "bar", baz: 22, 33: 'hello'};
+    let vals = []
+    for (const key of Object.keys(myDict)) {
+        vals.push(myDict[key])
+    }
+    writeln(vals)
+
+Here is a much more functional approach to the problem that works in one line, but only for browsers that support ECMAScript 6:
+
+.. activecode:: jsdictvals2
+    :language: javascript
+
+    const myDict = {foo: "bar", baz: 22, 33: 'hello'};
+    const vals = Object.keys(myDict).map(key => myDict[key])
+    writeln(vals)
+
+This is pretty interesting as it introduces a new syntax: ``key => myDict[key]`` this is a bit like a Python lambda expresion.  In that it does essientially create a very simple function expression.  These are called **arrow functions**  or sometimes fat arrow functions in Javscript.  These are pretty new additions to the Javscript language, so you might also see an equivalent one liner that looks like this:
+
+::
+    const vals = Object.keys(myDict).map(function(key) {return myDict[key]})
+
+The arrow is much cleaner and simpler to read once you have seen and understand them.
+
+* **Get all items** there really is no use for this in Javscript as the most common use case for ``myDict.items()`` in Python is as a way to iterate over the key value pairs of a dictionary.  Also as a side note, Javscript does not have a tuple data type.  But it is just as easy to do the same iteration in javascript
+
+.. activecode:: jsdictvals1
+    :language: javascript
+
+    const myDict = {foo: "bar", baz: 22, 33: 'hello'};
+    for (const key of Object.keys(myDict)) {
+        val = myDict[key]
+        // do something with key and val
+    }
+
+
+* Get a value for a key if it exists, otherwise get a default.  In Python we commonly would use the pattern ``myDict.get(key,"default")`` where get returns the value for key from myDict or "default" if the key does not exist.  In Javscript the idiom for this is:
+
+.. code-block:: javascript
+
+    myDict['nobodyhome'] || 'default'
+
+This makes use of the fact that if the key 'nobodyhome' is not found in myDict it evaluates to undefined which is falsey which causes the next thing in the boolean or statement to be evaluated, causing the full expression to evaluate to 'default'.
+
+Lets put all of this to work in a full blown example.
+We will stay with a simple frequency counting example, only this time we
 will count the frequency of words in a document. A simple Python program
 for this job could look like this:
 
@@ -1014,6 +1079,8 @@ for this job could look like this:
 
    main()
 
+   Notice that the structure of the program is very similar to the numeric
+   histogram program.
 
 .. datafile:: alice30.txt
 
@@ -1031,54 +1098,48 @@ for this job could look like this:
    say.)
 
 
-
-Notice that the structure of the program is very similar to the numeric
-histogram program.
+Now lets look at how to do it in modern Javascript.
 
 .. activecode:: dictjava
     :language: javascript
-    :sourcefile: HistoMap.Javascript
-    :datafile: alice30.txt
 
-    import Javascript.util.Scanner;
-    import Javascript.util.ArrayList;
-    import Javascript.io.File;
-    import Javascript.io.IOException;
-    import Javascript.util.TreeMap;
+    "use strict";
+    main()
 
-    public class HistoMap {
+    function main() {
 
-        public static void main(String[] args) {
-            Scanner data = null;
-            TreeMap<String,Integer> count;
-            Integer idx;
-            String word;
-            Integer wordCount;
+        const data = document.getElementById('alice30.txt').innerText
 
-            try {
-                    data = new Scanner(new File("alice30.txt"));
-            }
-            catch ( IOException e) {
-                writeln("Sorry but I was unable to open your data file");
-                e.printStackTrace();
-                System.exit(0);
-            }
+        let count = {}
 
-            count = new TreeMap<String,Integer>();
+        for (let word of data.split(/\s/)) {
+            word = word.toLowerCase();
+            count[word] = (count[word] || 0) + 1
+        }
 
-            while(data.hasNext()) {
-                word = data.next().toLowerCase();
-                wordCount = count.get(word);
-                if (wordCount == null) {
-                    wordCount = 0;
-                }
-                count.put(word,++wordCount);
-            }
-
-            for(String i : count.keySet()) {
-                System.out.printf("%-20s occured %5d times\n", i, count.get(i) );
-            }
+        for (let key of Object.keys(count)) {
+            writeln(key + ": " + count[key])
         }
     }
 
 Improve the program above to remove the punctuation.
+
+Practice Problems
+=================
+
+Translate the following into Javascript
+
+.. actex:: jsbasics_1
+    :language: javascript
+
+    Translate the following into Javascript:
+
+    ::
+        def sumlist(l):
+            total = 0
+            for num in l:
+                total = total + num
+
+            return total
+    ~~~~
+    # Your code here
