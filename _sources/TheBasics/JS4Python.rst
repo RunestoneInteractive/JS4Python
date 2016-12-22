@@ -723,6 +723,48 @@ Collections
 Lists/Arrays
 ------------
 
+One of the fundamental data types in Python is the list.  Although Javascript does not have lists, Javascript does have **Arrays** that can act a lot like lists.
+
+Some of the fundamental list operations we will look at in this section.
+
+* append, pop
+* index
+* slice
+* in / not in
+* Creating lists of iterables
+
+Python has many ways to add and remove items from lists.  Lets look at the most common one's and their Javascript equivalents.
+
+.. csv-table:: listoperations
+   :header: "Python", "Javascript", "Notes"
+
+   "l.append(newitem)", "l.push(newitem)", "Push adds to the end"
+   "l.pop()", "l.pop()", "both pop off the end"
+   "l.pop(0)", "l.shift()", "Javascript uses shift to remove from the front"
+   "l.insert(0,newitem)", "l.unshift(newitem)", "Unshift adds at the start"
+   "l.insert(idx, newitem)", "l.splice(idx, 0, newitem)", "splice inserts at index deleting 0 items first"
+   "del l[idx]", "l.splice(idx, 1)", "splice can also just delete the item at idx"
+   "l1 + l2", "l1.concat(l2)", "You cannot add two arrays together using + in Javascript "
+
+The last one definitely requires a bit of explanation.  The + operator is not defined for Javascript arrays but it also won't give an error if you try it.  Instead Javascript silently (and evilly) converts the two arrays to strings and concatenates the strings!  So, ``[1,2] + [3,4] --> '1, 23, 4'``  Yikes!
+
+Both Python and Javascript support indexing, but negative indexing is not supported by Javascript.  You will just get 'undefined' as a result.
+
+slicing is supported in Javascript but only through the slice method.
+
+.. csv-table:: listoperations1
+   :header: "Python", "Javascript", "Notes"
+
+   "l[2:4]", "l.slice(2,4)", "both slices start at 2 and end at 3 inclusive"
+   "l[2:]", "l.slice(2)" "both slice from 2 to the end"
+   "l[:4]", "l.slice(0,4)", "both slice from the beginning through 3 inclusive"
+   "l[-5:-1]", "l.slice(-5,-1)", "both slice from 5 from the end to 1 from the end inclusive"
+
+Unlike indexing, the slice method will accept negative numbers as offsets from the end of the list as both the starting and ending values.
+
+
+
+
 Lets look at another early Python program. We are going to read numbers
 from a file and produce a histogram that shows the frequency of the
 various numbers. The data file we will use has one number between 0 and
@@ -1121,6 +1163,8 @@ Now lets look at how to do it in modern Javascript.
             writeln(key + ": " + count[key])
         }
     }
+
+Other than different syntax, this example is very close to the Python example.  We will get into the details of line 6 in a later chapter. but for now suffice to say that it allows us to get all the text from the first paragraph of alice.  The same thing that we used as a mock file in the Python example.
 
 Improve the program above to remove the punctuation.
 
