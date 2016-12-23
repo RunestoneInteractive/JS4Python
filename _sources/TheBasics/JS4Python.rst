@@ -755,8 +755,88 @@ The Javascript formatted strings are called Template literals.  They are closest
 
 Javascript template literals can contain expressions and can contain dotted and indexed objects as well.   In fact there is even more power in the template literals than we have seen here, but we will delay further exploration until the web programming section.
 
+Check Your Understanding
+------------------------
+
+.. dragndrop:: check_bools
+    :feedback:  No feedback
+    :match_1: and|||&&
+    :match_2: or|||||
+    :match_3: not|||!
+
+    Match the Javascript boolean operators to their Python counterparts.
+
+.. mchoice:: check_hoisting
+    :answer_a: Logically moving variable and function declarations to the beginning of the scope.
+    :feedback_a: Yes, very good.
+    :answer_b: Giving priority to variables declared using let instead of var
+    :feedback_b: Both let and var hoist the variables they refer to in a function.  But var does not outside a function.
+    :answer_c: Using ``function foo()`` instead of ``var foo = function()``
+    :feedback_c: Close, functions declared this way are hoisted but you are not getting the general sense of the definition.
+    :correct: a
+
+    What is "hoisting" in Javascript?
+
+
+.. mchoice:: check_types
+    :multiple_answers:
+    :answer_a: float
+    :answer_b: numeric
+    :answer_c: undefined
+    :answer_d: string
+    :answer_e: boolean
+    :correct: b,c,d,e
+
+    Which of the following are valid javascript data types?
+
+.. mchoice:: check_loops
+    :answer_a: ``for (let i in mylist) { writeln(i);}``
+    :feedback_a: The for in loop iterates over the keys so this will print 0 ... 4.
+    :answer_b: ``for (let i = 0; i < mylist.length; i++) { writeln(mylist[i])}``
+    :feedback_b: i is the index variable and prints out the value stored at that index in the list
+    :answer_c: ``for (let i of mylist) { writeln(i);}``
+    :feedback_c: This is the closest example to python's ``for i in mylist:``
+    :answer_d: ``for (let i in mylist) { writeln(mylist[i])}``
+    :feedback_d: i is the index variable and prints out the value stored at that index in the list
+    :correct: a
+
+    Which of the above for loops will **not** print out the numbers 1 through 5 given the declarations below.
+
+    .. code-block:: javascript
+
+        let mylist = [1,2,3,4,5];
+
+.. clickablearea:: check_scope
+    :question: click on all of the variables that are correctly scoped
+    :iscode:
+
+    "use strict";
+    function main(x) {
+       :click-incorrect:z = 11:endclick:
+       :click-correct:let y = 10:endclick:
+       for (let i = 0; i < 10; i++) {
+           :click-correct:y = y + 1:endclick:
+       }
+       :click-incorrect:writeln(i):endclick:
+       :click-correct:writeln(y):endclick:
+    }
+
+.. actex:: check_sumofn
+    :language: javascript
+
+    Write a function to compute the sum of the first N numbers, starting at 0.
+    ~~~~
+    "use strict"
+    function sumOfN(n) {
+        // Your code here
+    }
+
 Collections
------------
+===========
+
+Now that we have looked at the primitive variables and programming constructs of Javascript it is time to move on to the Javascript equivalents of Lists and Dictionaries.
+
+As a preliminary to this section it is important for you to understand that everything in Javascript is an object.  and that all objects are capable of acting like dictionaries.  In Javascript you can add an attibute to any object.  ``myObj.someattribute = somevalue``
 
 Lists/Arrays
 ------------
