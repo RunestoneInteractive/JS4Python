@@ -4,6 +4,10 @@ Part I: The Basics
 Introduction
 ============
 
+.. sidebar:: An Overview of Part I
+
+   .. contents:: Topic Outline
+
 This book assumes that you are already familiar with the
 `Python <http://www.python.org>`_ programming language. We will use
 Python as a starting point for our journey into
@@ -12,27 +16,28 @@ Javascript program, just to see what the language looks like and how we get a
 program to run. Next, we will look at the main constructs that are
 common to most programming languages:
 
-    -  Data Types
+-  Data Types
 
-    -  Loops
+-  Loops
 
-    -  Reading user input
+-  Reading user input
 
-    -  Conditionals
+-  Conditionals
 
 Once we have the basics of JavaScript behind us we will move on to look at the
 features of Javascript that are both unique and powerful.
 
-    -  Classes
+-  Classes
 
-    - Javascript's built-in classes
-      - Array
-      - Regex
-      - Date
-      - Math
-      - JSON
+- Javascript's built-in classes
 
-    -  Front End Web Programming
+  - Array
+  - Regex
+  - Date
+  - Math
+  - JSON
+
+-  Front End Web Programming
 
 Please note that this book is a work in progress. I will continue to
 update and post new versions.
@@ -380,7 +385,8 @@ statement is too much to resist.
 
 This is really  a shortcut for writing something like:
 
-::
+.. code-block:: javascript
+
     if (condition)
         x = something
     else
@@ -649,8 +655,8 @@ The value ``null`` is used when you want to represent the absence of an object o
 A variable that has not been assigned a value is  of type undefined.  If a function does not explicitly return a value then the value it returns is also ``undefined``.
 
 
-String
-------
+Strings
+-------
 
 Strings in Javascript and Python are quite similar. Like Python, Javascript strings are immutable. However, manipulating strings in Javascript is not quite as
 obvious since Strings do not support an indexing or slicing operator.
@@ -713,9 +719,41 @@ The Javascript version illustrates a few of the string methods and idioms and a 
 The second difference is the for loop.  We'll look in detail at the for loop later as there are many variations and subtle different kinds of for loops possible in Javascript.  ``for (let eachChar of s)`` is the best equivalent of the ``for eachChar in s`` used in python.  each time through the loop, eachChar takes on the value of the next char in the sequence. The use of let restricts the scope of eachChar to the loop, so once the loop is exited eachChar does not exist anymore.
 
 
+Multiline Strings and Formatted Strings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The latest version of Javascript adds two very welcome additions!  Multiline and formatted strings.  Prior to ECMAScript 6 Javascript programmers did not have the euquivalent of Python's triple quoted strings.  This can be a real pain for web programmers who are constructing and inserting templated chunks of text into a web page.  Javascript now supports multi-line strings using the ``\``` (backquote) character.
+
+.. activecode:: jsmultiline
+    :language: javascript
+
+    mlstr = `Hello world
+    this is a "multi-line."
+    Isn't it nice.
+    string.
+    `
+    writeln(mlstr);
+    alert(mlstr);
 
 
+Note that writeln prints a multiline string with the explicit newline characters if you change the ``writeln`` to ``alert``  You will see that the newlines are right where they should be.
 
+Python has many ways of doing formatted strings.
+
+* The standard modulus operator for insertion  ``"The total is %d \n" % total``
+* The the format function: ``"The total is {}\n".format(total)``
+* As of Python 3.6 formatted string literals.  ``f"the total is {total}\n"  These are a lot like format but the string just starts with f and you embed the name of the variable you want to insert between the curly braces.
+
+The Javascript formatted strings are called Template literals.  They are closest to the new Python 3.6 formatted strings.  Like multi-line strings they are delimited by back-quotes.
+
+.. activecode:: jsformatstr
+    :language: javascript
+
+    total = 10
+    mystr = `The total is ${total}`
+    writeln(mystr)
+
+Javascript template literals can contain expressions and can contain dotted and indexed objects as well.   In fact there is even more power in the template literals than we have seen here, but we will delay further exploration until the web programming section.
 
 Collections
 -----------
@@ -756,13 +794,64 @@ slicing is supported in Javascript but only through the slice method.
    :header: "Python", "Javascript", "Notes"
 
    "l[2:4]", "l.slice(2,4)", "both slices start at 2 and end at 3 inclusive"
-   "l[2:]", "l.slice(2)" "both slice from 2 to the end"
+   "l[2:]", "l.slice(2)", "both slice from 2 to the end"
    "l[:4]", "l.slice(0,4)", "both slice from the beginning through 3 inclusive"
    "l[-5:-1]", "l.slice(-5,-1)", "both slice from 5 from the end to 1 from the end inclusive"
 
 Unlike indexing, the slice method will accept negative numbers as offsets from the end of the list as both the starting and ending values.
 
+Checking for membership
 
+In Python we often write ``if something in mylist:``  In Javascript we can write this a couple of ways:
+
+.. activecode:: jsmembership
+    :language: javascript
+
+    let mylist = [1, 2, 3, "foo", "bar"]
+    if (mylist.includes(3)) {
+        writeln('yes, includes returns true')
+    }
+    // indexOf returns the location of item or -1 if not found
+    if (mylist.indexOf(3) > -1) {
+        writeln('yes, index is > -1')
+    }
+
+    // BEWARE this does not work as expected
+    if (3 in mylist) {
+        writeln('yes, 3 is in mylist')
+    }
+
+    if ("foo" in mylist) {
+        writeln('yes, foo is in mylist')
+    } else {
+        writeln("what?")
+    }
+
+Hold on, what is going on with that last example?  Using "in" to test for membership is very tempting for Python programmers, and in fact in the first example looks like it works.  But that example is misleading! The in operator only works on the keys of an object.  The items in an array are not the same as the keys of a Javascript object.  But, since Arrays are objects it does not throw an error, it just works in a confusing way.  In the example above it is saying that the object mylist does not have a key called "foo".  What are the keys of an Array?
+
+.. activecode:: arraykeys
+    :language: javascript
+
+    let mylist = [1, 2, 3, "foo", "bar"];
+    for (let k of Object.keys(mylist)) {
+        writeln(k)
+    }
+
+If you run the example you can see that for an Array, the keys are the index values of the items in the Array.  Don't use **in** with Arrays.
+
+Finally, lets look at a few convenient ways to make Arrays.
+
+In Python there are a couple of very common patterns for converting parts of strings to lists:  splitting a string, and converting all the characters of a string into array elements.
+
+.. activecode:: jstolist
+    :language: javascript
+
+    l1 = "the quick brown fox jumps over".split(/\s/);
+    writeln(l1)
+    l2 = Array.from("the quick brown fox jumps over")
+    writeln(l2)
+    // Join works similarly, but the sparator is the argument not the list
+    writeln(l1.join(":"))
 
 
 Lets look at another early Python program. We are going to read numbers
@@ -969,61 +1058,6 @@ the ``ArrayList``. If you tried the experiment of removing the
 ``<Integer>`` part of the ``ArrayList`` declaration you probably noticed
 that you had an error on this line. Why?
 
-Arrays
-------
-
-As I said at the outset of this Section we are going to use Javascript
-``ArrayLists`` because they are easier to use and more closely match the
-way that Python lists behave. However, if you look at Javascript code on the
-internet or even in your Core Javascript books you are going to see examples
-of something called arrays. In fact you have already seen one example of
-an array declared in the ‘Hello World’ program. Lets rewrite this
-program to use primitive arrays rather than array lists.
-
-.. activecode:: primarrays
-    :language: javascript
-    :sourcefile: HistoArray.Javascript
-    :datafile: test.dat
-
-    import Javascript.util.Scanner;
-    import Javascript.io.File;
-    import Javascript.io.IOException;
-
-    public class HistoArray {
-        public static void main(String[] args) {
-            Scanner data = null;
-            Integer[] count = {0,0,0,0,0,0,0,0,0,0};
-            Integer idx;
-
-
-
-            try {
-                    data = new Scanner(new File("test.dat"));
-            }
-            catch ( IOException e) {
-                writeln("Sorry but I was unable to open your data file");
-                e.printStackTrace();
-                System.exit(0);
-            }
-
-            while(data.hasNextInt()) {
-                idx = data.nextInt();
-                count[idx] = count[idx] + 1;
-            }
-
-            idx = 0;
-            for(Integer i : count) {
-                writeln(idx + " occured " + i + " times.");
-                idx++;
-            }
-        }
-    }
-
-The main difference between this example and the previous example is
-that we declare count to be an Array of integers. We also can initialize
-short arrays directly using the syntax shown on line 8. Then notice that
-on line 24 we can use the square bracket notation to index into an
-array.
 
 Dictionary/Object
 -----------------
@@ -1065,7 +1099,7 @@ Some common operations from Python that you will want to know about include:
 
 Here is a much more functional approach to the problem that works in one line, but only for browsers that support ECMAScript 6:
 
-.. activecode:: jsdictvals2
+.. activecode:: jsdictvals3
     :language: javascript
 
     const myDict = {foo: "bar", baz: 22, 33: 'hello'};
@@ -1081,7 +1115,7 @@ The arrow is much cleaner and simpler to read once you have seen and understand 
 
 * **Get all items** there really is no use for this in Javscript as the most common use case for ``myDict.items()`` in Python is as a way to iterate over the key value pairs of a dictionary.  Also as a side note, Javscript does not have a tuple data type.  But it is just as easy to do the same iteration in javascript
 
-.. activecode:: jsdictvals1
+.. activecode:: jsdictvals2
     :language: javascript
 
     const myDict = {foo: "bar", baz: 22, 33: 'hello'};
@@ -1179,6 +1213,7 @@ Translate the following into Javascript
     Translate the following into Javascript:
 
     ::
+
         def sumlist(l):
             total = 0
             for num in l:
