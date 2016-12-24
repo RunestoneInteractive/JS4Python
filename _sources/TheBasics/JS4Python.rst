@@ -168,7 +168,9 @@ write your code like this, but you should know that it is legal.
 
 As a point of fact, the semicolon is optional in Javascript as long as it is obvious where the end of the statement is.  However I would encourage you to get in the habit of using semicolons to avoid any accidental errors.
 
-You will find that Javascript uses the ``function() { ... }`` notation in many many contexts.  Many functions in javascript are written to expect a function as an argument, and many times it would be a waste of time to give the function a name.  So functions can be defined on-the-fly using ``function()``.  In fact it is so common that in the latest version of Javascript the developers have made it very easy to define simple one line functions using a special notation called **arrow functions**.  If you are familiar with using lambda functions in Python you will immediately appreciate the arrow notation: ``(param1, param2) => expression``  Where the result of the expression is the return value.  For example ``(a,b) => a+b`` is the equivalent of ``function(a,b) { return a + b}``.  The compact notation is really nice.  If you've never used a lambda in Python don't worry about this for now, we'll revisit this idea later.
+.. admonition:: Advanced Topic
+
+    You will find that Javascript uses the ``function() { ... }`` notation in many many contexts.  Many functions in javascript are written to expect a function as an argument, and many times it would be a waste of time to give the function a name.  So functions can be defined on-the-fly using ``function()``.  In fact it is so common that in the latest version of Javascript the developers have made it very easy to define simple one line functions using a special notation called **arrow functions**.  If you are familiar with using ``lambda`` functions in Python you will immediately appreciate the arrow notation: ``(param1, param2) => expression``  Where the result of the expression is the return value.  For example ``(a,b) => a+b`` is the equivalent of ``function(a,b) { return a + b}`` or ``lambda a,b : a+b`` in Python.  The compact notation is really nice.  If you've never used a lambda in Python don't worry about this for now, we'll revisit this idea later.
 
 Conditionals
 ============
@@ -743,7 +745,7 @@ Python has many ways of doing formatted strings.
 
 * The standard modulus operator for insertion  ``"The total is %d \n" % total``
 * The the format function: ``"The total is {}\n".format(total)``
-* As of Python 3.6 formatted string literals.  ``f"the total is {total}\n"  These are a lot like format but the string just starts with f and you embed the name of the variable you want to insert between the curly braces.
+* As of Python 3.6 formatted string literals.  ``f"the total is {total}\n"`` These are a lot like format but the string just starts with f and you embed the name of the variable you want to insert between the curly braces.
 
 The Javascript formatted strings are called Template literals.  They are closest to the new Python 3.6 formatted strings.  Like multi-line strings they are delimited by back-quotes.
 
