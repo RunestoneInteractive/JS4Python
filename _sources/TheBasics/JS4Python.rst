@@ -129,7 +129,7 @@ With Javascript it is certainly possible to put the string "Hello World" pretty 
 
 What we see is that at the core there are a few similarities, such as a main and
 the string “Hello World” But there are other things that are quite  different.
-For example to create a function we use  ``function`` to create a new function with the body of the function inside the curly braces.  Unlike Python when you define a function this way the function is available for use in regardless of whether you defined the function before you call it. In Javascript moving all function declarations to the start is referred to as 'hoisting.'
+For example to create a function we use  ``function`` to create a new function with the body of the function inside the curly braces.  Unlike Python when you define a function this way the function is available for use in regardless of whether you defined the function before you call it. In Javascript logically moving all function declarations to the start is referred to as 'hoisting.'
 
 It is also possible, and quite common, to define a function like this:
 
@@ -168,6 +168,7 @@ write your code like this, but you should know that it is legal.
 
 As a point of fact, the semicolon is optional in Javascript as long as it is obvious where the end of the statement is.  However I would encourage you to get in the habit of using semicolons to avoid any accidental errors.
 
+You will find that Javascript uses the ``function() { ... }`` notation in many many contexts.  Many functions in javascript are written to expect a function as an argument, and many times it would be a waste of time to give the function a name.  So functions can be defined on-the-fly using ``function()``.  In fact it is so common that in the latest version of Javascript the developers have made it very easy to define simple one line functions using a special notation called **arrow functions**.  If you are familiar with using lambda functions in Python you will immediately appreciate the arrow notation: ``(param1, param2) => expression``  Where the result of the expression is the return value.  For example ``(a,b) => a+b`` is the equivalent of ``function(a,b) { return a + b}``.  The compact notation is really nice.  If you've never used a lambda in Python don't worry about this for now, we'll revisit this idea later.
 
 Conditionals
 ============
@@ -1009,15 +1010,12 @@ Here is the Javascript code needed to write the exact same program:
 
     "use strict"
     let main = function() {
-        let count = new Array(10);
+        let count = new Array(10).fill(0);
         let data = '9,8,4,3,5,5,1,1,5,8,9,7,7,7,6'
 
-        for(let i = 0; i < count.length; i++) {
-            count[i] = 0;
-        }
-
         for (let num of data.split(',')) {
-            count[parseInt(num)] = count[parseInt(num)] + 1
+            const idx = parseInt(num);
+            count[idx] = count[idx] + 1
         }
 
         for(let num in count) {
@@ -1029,114 +1027,31 @@ Here is the Javascript code needed to write the exact same program:
 
 
 
-Now, lets look at what is happening in the Javascript source. As usual we
-declare the variables we are going to use at the beginning of the
-method. In this example we are declaring a Scanner variable called data,
-an integer called idx and an ``ArrayList`` called count. However, there
-is a new twist to the ``ArrayList`` declaration. Unlike Python where
-lists can contain just about anything, in Javascript we let the compiler know
-what kind of objects our array list is going to contain. In this case
-the ``ArrayList`` will contain Integers. The syntax we use to declare
-what kind of object the list will contain is the ``<Type>``
-syntax.
+Now, lets look at what is happening in the Javascript source. First we declare a variable to hold the counts -- We are making the assumption that all of the numbers we want to count are between 0 and 9, so we can give our array an initial size, and initialize it with 0 values using the fill method.
 
-Technically, you don’t *have* to declare what is going to be on an array
-list. The compiler will allow you to leave the ``<``*Type*``>`` off the
-declaration. If you don’t tell Javascript what kind of object is going to be
-on the list Javascript will give you a warning message like this:
+Next lines 6 -- 9 iterate over the values in the array (for...of) created by the split method.  As with Python splitting the string results in an array of strings.  So to update our count we need to convert the string to an integer.  We use the parseInt function for this.  Declaring idx as a const inside the for loop ensures that any attempt to change idx will cause an error, as well as limiting the scope of idx to the loop.
 
-::
+Finally lines 11 -- 13 print the results using by iterating over the index values of the array (for...in) and printing out the count value for each.
 
-    Note: Histo.Javascript uses unchecked or unsafe operations.
-    Note: Recompile with -Xlint:unchecked for details.
+.. admonition:: Advanced Topic
 
-Without the <Integer> part of the declaration Javascript simply assumes that
-*any* object can be on the list. However, without resorting to an ugly
-notation called casting, you cannot do anything with the objects on a
-list like this! So, if you forget you will surely see more errors later
-in your code. (Try it and see what you get)
+    Note, if you know you want to convert the elements of the list to integers and you may use the list several times, a common Javascript idiom for this would be to use the map function as follows:
 
-Lines 13—20 are required to open the file. Why so many lines to open a
-file in Javascript? The additional code mainly comes form the fact that Javascript
-forces you to reckon with the possibility that the file you want to open
-is not going to be there. If you attempt to open a file that is not
-there you will get an error. A try/catch construct allows us to try
-things that are risky, and gracefully recover from an error if one
-occurs. The following example shows the general structure of a try catch
-block.
+    .. code-block:: javascript
 
-::
+        data = data.split(',').map(function(t) { return parseInt(t) })
 
-    try {
-       Put some risky code in here.... like opening a file
-    }
-    catch (Exception e) {
-       If an error happens in the try block an exception is thrown.
-       We will catch that exception here!
-    }
+    This one liner splits the string, and then applies the parseInt function to every element of the array, returning an array of transformed objects.  The map function is a very powerful functional programming tool and worth getting to know in detail.  In data science the map reduce programming paradigm is widely used on very large datasets.  For example, suppose your task was to add all of the numbers represented by the data string in the example above.  You can do it very simply as follows:
 
-Notice that in line 16 we are catching an ``IOException``. In fact we
-will see later that we can have multiple catch blocks to catch different
-types of exceptions. If we want to be lazy and catch any old exception
-we can catch an ``Exception`` which is the parent of all exceptions.
+    .. activecode:: jsmapreduce
+        :language: javascript
 
-On line 22 we create our array list and give it an initial size of 10.
-Strictly speaking it is not necessary to give the ``ArrayList`` any
-size. It will grow or shrink dynamically as needed just like a list in
-Python. On line 23 we start the first of three loops. The for loop on
-lines 23–25 serves the same purpose as the Python statement
-``count = [0]*10``, that is it initializes the first 10 positions in the
-``ArrayList`` to hold the value 0.
+        let data = '9,8,4,3,5,5,1,1,5,8,9,7,7,7,6'
+        sum = data.split(',')
+            .map(function(t) {return parseInt(t)})
+            .reduce((a,b) => a+b)
 
-The syntax of this for loop probably looks very strange to you, but in
-fact it is not too different from what happens in Python using range. In
-fact ``for(Integer i = 0; i < 10; i++)`` is exactly equivalent to the
-Python ``for i in range(10)`` The first statement inside the parenthesis
-declares and initializes a loop variable i. The second statement is a
-Boolean expression that is our exit condition. In other words we will
-keep looping as long as this expression evaluates to true. The third
-clause is used to increment the value of the loop variable at the end of
-iteration through the loop. In fact ``i++`` is Javascript shorthand for
-``i = i +`` Javascript also supports the shorthand ``i--`` to decrement the
-value of i. Like Python you can also write ``i += 2`` as shorthand for
-``i = i + 2`` Try to rewrite the following Python for loops as Javascript for
-loops:
-
-    -  ``for i in range(2,101,2)``
-
-    -  ``for i in range(1,100)``
-
-    -  ``for i in range(100,0,-1)``
-
-    -  ``for x,y in zip(range(10),range(0,20,2))`` [hint, you can
-       separate statements in the same clause with a ,]
-
-The next loop (lines 27–30) shows a typical Javascript pattern for reading
-data from a file. Javascript while loops and Python while loops are identical
-in their logic. In this case we will continue to process the body of the
-loop as long as ``data.hasNextInt()`` returns true.
-
-Line 29 illustrates another important difference between Python and
-Javascript. Notice that in Javascript we can not write
-``count[idx] = count[idx] + 1``. This is because in Javascript there is no
-overloading of operators. Everything except the most basic math and
-logical operations is done using methods. So, to set the value of an
-``ArrayList`` element we use the ``set`` method. The first parameter of
-``set`` indicates the index or position in the ``ArrayList`` we are
-going to change. The next parameter is the value we want to set. Notice
-that once again we cannot use the indexing square bracket operator to
-retrieve a value from the list, but we must use the ``get`` method.
-
-The last loop in this example is similar to the Python for loop where
-the object of the loop is a Sequence. In Javascript we can use this kind of
-for loop over all kinds of sequences, which are called Collection
-classes in Javascript. The for loop on line 33 ``for(Integer i : count)`` is
-equivalent to the Python loop ``for i in count:`` This loop iterates
-over all of the elements in the ArrayList called count. Each time
-through the loop the Integer variable i is bound to the next element of
-the ``ArrayList``. If you tried the experiment of removing the
-``<Integer>`` part of the ``ArrayList`` declaration you probably noticed
-that you had an error on this line. Why?
+        writeln(sum)
 
 
 Dictionary/Object
