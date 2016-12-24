@@ -1151,8 +1151,11 @@ to key, value pairs, Javascript also provides us a similar mechanism.  In fact a
     let x = {}
     x['foo'] = 'bar'
     x[2] = 99
+    x.answer = 42
     writeln(x)
+    writeln(x['answer'])
 
+One important difference between Python dictionaries and Javascript is that you can use either the dotted notation or the index operator to add and retrieve values stored for a key.  Of course if your key has a space or dash in the middle of it you are limited to the index notation, but for many keys using the dotted notation is very convenient and very readable.
 
 Some common operations from Python that you will want to know about include:
 
