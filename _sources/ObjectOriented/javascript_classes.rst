@@ -72,74 +72,24 @@ instance variables to a class at any time by simply assigning a value to
     console.log(x.numerator)
 
 
-Notice that we have declared the numerator and denominator to be
-private. This means that the compiler will generate an error if another
-method tries to write code like the following:
+Before we go any further lets look at how we would have defined this in all the other versions of Javascript prior to the most recent.  Its important that you understand this too as there are billions of lines of code written the old way.
 
-::
+.. activecode:: jsoldclass
+    :language: javascript
 
-    Fraction f = new Fraction(1,2);
-    Integer y = f.numerator * 10;
-
-Direct access to instance variables is not allowed. Therefore if we
-legitimately want to be able to access information such as the numerator
-or denominator for a particular fraction we must have getter functions.
-It is very common programming practice to provide getter and setter
-functions for instance variables in Java.
-
-::
-
-    public Integer getNumerator() {
-        return numerator;
+    function Fraction(num, den) {
+        this.numerator = num;
+        this.denominator = den;
     }
 
-    public void setNumerator(Integer numerator) {
-        this.numerator = numerator;
+    Fraction.prototype.toString = function() {
+        return this.numerator + " / " + this.denominator;
     }
 
-    public Integer getDenominator() {
-        return denominator;
-    }
+    f = new Fraction(2,3);
+    writeln("f is " + f)
 
-    public void setDenominator(Integer denominator) {
-        this.denominator = denominator;
-    }
 
-Writing a constructor
----------------------
-
-Once you have identified the instance variables for you class the next
-thing to consider is the constructor. In Java, constructors have the
-same name as the class and are declared public. They are declared
-without a return type. So any function that is named the same as the
-class and has no return type is a constructor. Our constructor will take
-two parameters the numerator and the denominator.
-
-::
-
-    public Fraction(Integer top, Integer bottom) {
-        num = top;
-        den = bottom;
-    }
-
-There are a couple of important things to notice here. First, you will
-notice that the constructor does not have a self parameter. You will
-also notice that we can simply refer to the instance variables by name
-without the self prefix, because they have already been declared. This
-allows the Java compiler to do the work of dereferencing the current
-Java object. Java does provide a special variable called ``this`` that
-works like the self variable. In Java, ``this`` is typically only used
-when it is needed to differentiate between a parameter or local variable
-and an instance variable. For example this alternate definition of the
-the Fraction constructor uses ``this`` to differentiate between
-parameters and instance variables.
-
-::
-
-    public Fraction(Integer num, Integer den) {
-        this.num = num;
-        this.den = den;
-    }
 
 Methods or Member Functions
 ---------------------------
