@@ -4,11 +4,17 @@ Part II: Object Oriented Programming
 Defining Classes in Javascript
 ==============================
 
-You have already seen how to define classes in Java. Its unavoidable for
-even the simplest of programs. In this section we will look at how we
-define classes to create our own data types. Lets start by creating a
-fraction class to extend the set of numeric data types provided by our
-language. The requirements for this new data type are as follows:
+Defining classes in Javascript used to be quite mysterious for a beginner.  There was no class statement, in fact, technially Javascript did not have the idea of class as a factory for making objects.  Javascript was a prototypal language.
+
+    Prototypal inheritance is a form of object-oriented code reuse. Javascript is one of the only [mainstream] object-oriented languages to use prototypal inheritance. Almost all other object-oriented languages are classical.
+
+    In classical inheritance, the programmer writes a class, which defines an object. Multiple objects can be instantiated from the same class, so you have code in one place which describes several objects in your program. Classes can then be organized into a hierarchy, furthering code reuse. More general code is stored in a higher-level class, from which lower level classes inherit. This means that an object is sharing code with other objects of the same class, as well as with its parent classes.
+
+    In the prototypal inheritance form, objects inherit directly from other objects. All of the business about classes goes away. If you want an object, you just write an object. But code reuse is still a valuable thing, so objects are allowed to be linked together in a hierarchy. In javascript, every object has a secret link to the object which created it, forming a chain. When an object is asked for a property that it does not have, its parent object will be asked... continually up the chain until the property is found or until the root object is reached.   (http://stackoverflow.com/questions/186244/what-does-it-mean-that-javascript-is-a-prototype-based-language)
+
+However, that made it difficult for developers used to classical object oriented programming to come to Javascript.  In the latest version of Javascript that has changed for the better.  Under the covers Javascript is the same, but we now have some "syntactic sugar to make life better for us."
+
+We will explore object oriented programming in Javascript by implementing a fraction class.
 
 -  Given a numerator and a denominator create a new Fraction.
 
@@ -36,28 +42,35 @@ that we will refer to throughout this section:
 The instance variables (data members) we will need for our fraction
 class are the numerator and denominator. Of course in Python we can add
 instance variables to a class at any time by simply assigning a value to
-``objectReferenc.variableName`` In Java all data members must be
-declared up front.
+``objectReferenc.variableName``
 
-The declarations of instance variables can come at the beginning of the
-class definition or the end. Cay Horstman, Author of the *Core Java*
-books puts the declarations at the end of the class. I like them at the
-very beginning so you see the variables that are declared before you
-begin looking at the code that uses them. With that in mind the first
-part of the Fraction class definition is as follows:
+.. activecode:: jsfrac1
+    :language: javascript
 
-.. highlight:: java
-   :linenothreshold: 5
+    class Fraction {
+        constructor(num, den) {
+            this.numerator = num;
+            this.denominator = den;
+        }
 
+        toString() {
+            return `${this.numerator} / ${this.denominator}`;
+        }
 
-::
+        get numerator() {
+            return this.numerator;
+        }
 
-    public class Fraction {
-        private Integer numerator;
-        private Integer denominator;
-
+        set numerator() {
+            console.log("error cannot set the numerator");
+        }
 
     }
+
+    x = new Fraction(2,3);
+    console.log("x is " + x)
+    console.log(x.numerator)
+
 
 Notice that we have declared the numerator and denominator to be
 private. This means that the compiler will generate an error if another
