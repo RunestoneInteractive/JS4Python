@@ -3,19 +3,32 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Java for Python Programmers
-======================================
+=================================
+Javascript for Python Programmers
+=================================
 
-Contents:
+.. toctree::
+
+    preface.rst
+
 
 .. toctree::
    :maxdepth: 2
+   :numbered:
 
-   JS4Python.rst
+   TheBasics/JS4Python.rst
+   ObjectOriented/javascript_classes.rst
+   Web/javascript_web.rst
 
+Back Matter
+:::::::::::
+
+.. toctree::
+
+    colophon.rst
 
 Indices and tables
-==================
+::::::::::::::::::
 
 * :ref:`genindex`
 * :ref:`modindex`
