@@ -273,6 +273,16 @@ Boolean
 
 Javascript has a boolean type.  But like Python many things evaluate Truthy and some things evaluate Falsey.  Like converting string to integer and vice versa Javascript does its best to evaluate something as Truthy or Falsey based on the context its used in.   For example in Python an empty list, an empty string or dictionary, and False are all Falsey.  In Javascript the following things are Falsey:  ``null``, ``undefined``, ``NaN``, ``0`` ``""`` and ``false``  (note the lower case f).  Everything else in Javascript evaluates Truthy especially ``true`` (note the lower case t).
 
+The boolean operators used in Javascript and Python are:
+
+======   ==========
+Python   Javascript
+======   ==========
+and      &&
+or       ||
+not      !
+======   ==========
+
 Null and Undefined
 ------------------
 
@@ -344,7 +354,7 @@ The Javascript version illustrates a few of the string methods and idioms and a 
 
 The second difference is the for loop.  We'll look in detail at the for loop later as there are many variations and subtle different kinds of for loops possible in Javascript.  ``for (let eachChar of s)`` is the best equivalent of the ``for eachChar in s`` used in python.  each time through the loop, eachChar takes on the value of the next char in the sequence. The use of let restricts the scope of eachChar to the loop, so once the loop is exited eachChar does not exist anymore.
 
-    
+
 Collections
 -----------
 
