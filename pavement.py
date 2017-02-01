@@ -10,7 +10,12 @@ import pkg_resources
 sys.path.append(os.getcwd())
 
 home_dir = os.getcwd()
-master_url = 'http://127.0.0.1:8000'
+master_url = None
+if master_url is None:
+    if gethostname() in ['web407.webfaction.com', 'rsbuilder']:
+        master_url = 'http://interactivepython.org'
+    else:
+        master_url = 'http://127.0.0.1:8000'
 master_app = 'runestone'
 serving_dir = "./build/JS4Python"
 dest = "../../static"
@@ -25,11 +30,11 @@ options(
         confdir=".",
         project_name = "JS4Python",
         template_args={'course_id': 'JS4Python',
-                       'login_required':'false',
+                       'login_required':'true',
                        'appname':master_app,
                        'loglevel': 0,
                        'course_url':master_url,
-                       'use_services': 'false',
+                       'use_services': 'true',
                        'python3': 'true',
                        'dburl': 'postgresql://bmiller@localhost/runestone',
                        'basecourse': 'JS4Python'

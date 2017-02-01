@@ -10,7 +10,7 @@ Javascript for Python Programmers
 .. toctree::
 
     preface.rst
-
+    pretest.rst
 
 .. toctree::
    :maxdepth: 2
