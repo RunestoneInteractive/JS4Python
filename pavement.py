@@ -6,6 +6,7 @@ import os, sys
 from runestone.server import get_dburl
 from sphinxcontrib import paverutils
 import pkg_resources
+from socket import gethostname
 
 sys.path.append(os.getcwd())
 
