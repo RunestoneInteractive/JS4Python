@@ -156,6 +156,11 @@ The following Quiz is for me to assess what you already know about Javascript.  
     .. activecode:: pt_15
         :language: javascript
 
-        Write a function that takes a single number as a parameter and returns true if the number is even.  Otherwise it should return false.
+        Write a function called isEven that takes a single number as a parameter and returns true if the number is even.  Otherwise it should return false.
         ~~~~
         // Your Code Here
+
+        writeln(isEven(2))
+        writeln(isEven(3))
+        writeln(isEven(11))
+        writeln(isEven(0))
