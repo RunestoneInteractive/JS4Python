@@ -249,6 +249,8 @@ Javascript also supports inheritance.  Here is a common example from Python.
     print(brian.name)
 
 
+In Javascript, the only syntax addition for implementing inheritance is to use the ``extends`` keyword as we do in the example below.
+
 .. activecode:: animals_js_1
     :language: javascript
 
@@ -293,6 +295,22 @@ Javascript also supports inheritance.  Here is a common example from Python.
     brian = new CartoonDog('Brian')
     brian.speak()
     writeln(brian.name)
+
+In older javascript code you may see something like:
+
+.. code-block:: javascript
+
+    function Dog(name)  {
+        this._name = name;
+    }
+
+    Dog.prototype = new Animal()
+
+    Dog.prototype.speak = function() {
+        writeln('woof');
+    }
+
+The assignignment to the prototype attribute of dog sets up the prototype chain so that if a function is not explicitly defined on the prototype object of Dog it will be found on the prototype object of Animal.  In some ways this makes it more explicit with respect to how inheritance works, but at the expense of being more verbose, and different from most other languages.
 
 Practice Exercises
 ~~~~~~~~~~~~~~~~~~
