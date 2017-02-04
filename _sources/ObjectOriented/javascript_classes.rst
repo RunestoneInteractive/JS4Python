@@ -47,10 +47,11 @@ instance variables to a class at any time by simply assigning a value to
 .. activecode:: jsfrac1
     :language: javascript
 
+    "use strict"
     class Fraction {
         constructor(num, den) {
-            this.numerator = num;
-            this.denominator = den;
+            this._numerator = num;
+            this._denominator = den;
         }
 
         toString() {
@@ -58,21 +59,25 @@ instance variables to a class at any time by simply assigning a value to
         }
 
         get numerator() {
-            return this.numerator;
+            return this._numerator;
         }
 
-        set numerator() {
+        get denominator() {
+            return this._denominator;
+        }
+
+        set numerator(v) {
             console.log("error cannot set the numerator");
         }
 
     }
 
-    x = new Fraction(2,3);
-    console.log("x is " + x)
-    console.log(x.numerator)
+    let x = new Fraction(2,3);
+    writeln("x is " + x)
+    writeln(x.numerator)
 
 
-Before we go any further lets look at how we would have defined this in all the other versions of Javascript prior to the most recent.  Its important that you understand this too as there are billions of lines of code written the old way.
+Before we go any further lets look at how we would have defined the Fraction class in all the other versions of Javascript prior to the most recent.  Its important that you understand this too as there are billions of lines of code written the old way.
 
 .. activecode:: jsoldclass
     :language: javascript
@@ -94,754 +99,207 @@ Before we go any further lets look at how we would have defined this in all the 
 Methods or Member Functions
 ---------------------------
 
-Now we come to one of the major differences between Java and Python. The
+Now we come to one of the major differences between Javascript and Python. The
 Python class definition used the special methods for addition, and
 comparison that have the effect of redefining how the standard operators
-behave. In Java there is **no operator overloading**. So we will have to
+behave. In Javascript there is **no operator overloading**. So we will have to
 write member functions to do addition, subtraction, multiplication, and
 division. Lets begin with addition.
 
-::
+.. activecode:: jsmethods1
+    :language: javascript
 
-    public Fraction add(Fraction otherFrac) {
-        Integer newNum, newDen, common;
-
-        newNum = otherFrac.getDenominator()*this.numerator +
-                                 this.denominator*otherFrac.getNumerator();
-        newDen = this.denominator * otherFrac.getDenominator();
-        common = gcd(newNum,newDen);
-        return new Fraction(newNum/common, newDen/common );
-    }
-
-First you will notice that the add member function is declared as
-``public Fraction`` The ``public`` part means that any other method may
-call the add method. The ``Fraction`` part means that ``add`` will
-return a fraction as its result.
-
-Second, you will notice that on line two all of the local variables used
-in the function are declared. In this case there are three local
-variables: ``newNum``, ``newDen``, and ``common``. It is a good idea for
-you to get in the habit of declaring your local variables at the
-beginning of your function. This declaration section provides a simple
-road map for the function in terms of the data that will be used. The
-listing above also makes use of the ``this`` variable, you may find it
-useful to use ``this`` until you are comfortable with abandoning your
-Pythonic ideas about ``self``.
-
-Declaring your variables at the top is not a requirement, it is just a
-recommended practice for you. Java only requires that you declare your
-variables before they are used. The following version of Fraction is
-also legal Java, but may be somewhat less readable.
-
-::
-
-    public Fraction add(Fraction otherFrac) {
-        Integer newNum = otherFrac.getDenominator()*numerator +
-                                 denominator*otherFrac.getNumerator();
-        Integer newDen = denominator * otherFrac.getDenominator();
-        Integer common = gcd(newNum,newDen);
-        return new Fraction(newNum/common, newDen/common );
-    }
-
-The addition takes place by multiplying each numerator by the opposite
-denominator before adding. This procedure ensures that we are adding two
-fractions with common denominators. Using this approach the denominator
-is computed by multiplying the two denominators. The greatest common
-divisor function is used to find a common divisor to simplify the
-numerator and denominator in the result.
-
-Finally on line 8 a new fraction is returned as the result of the
-computation. The value that is returned by the return statement must
-match the value that is specified as part of the declaration. So, in
-this case the return value on line 8 must match the declared value on
-line 1.
-
-Method Signatures and Overloading
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Our specification for this project said that we need to be able to add a
-``Fraction`` to an ``Integer``. In Python we can do this by checking the
-type of the parameter using the ``isinstance`` function at runtime.
-Recall that ``isinstance(1,int)`` returns ``True`` to indicate that 1 is
-indeed an instance of the ``int`` class. See lines 22 and 53—68 of the
-Python version of the Fraction class to see how our Python
-implementation fulfills this requirement.
-
-In Java we can do runtime type checking, but the compiler will not allow
-us to pass an Integer to the add function since the parameter has been
-declared to be a Fraction. The way that we solve this problem is by
-writing another ``add`` method with a different set of parameters. In
-Java this practice is legal and common we call this practice
-**overloading**.
-
-This idea of overloading raises a very important difference between
-Python and Java. In Python a method is known by its name only. In Java a
-method is known by its signature. The signature of a method includes its
-name, and the types of all of its parameters. The name and the types of
-the parameters are enough information for the Java compiler to decide
-which method to call at runtime.
-
-To solve the problem of adding an ``Integer`` and a ``Fraction`` in Java
-we will overload both the constructor and the add function. We will
-overload the constructor so that if it only receives a single
-``Integer`` it will convert the ``Integer`` into a ``Fraction``. We will
-also overload the add method so that if it receives an ``Integer`` as a
-parameter it first construct a ``Fraction`` from that integer and then
-add the two ``Fractions`` together. The new methods that accomplish this
-task are as follows:
-
-::
-
-    public Fraction(Integer num) {
-        this.numerator = num;
-        this.denominator = 1;
-    }
-
-    public Fraction add(Integer other) {
-        return add(new Fraction(other));
-    }
-
-Notice that the overloading approach can provide us with a certain
-elegance to our code. Rather than utilizing if statements to check the
-types of parameters we just overload functions ahead of time which
-allows us to call the method we want and allow the compiler to make the
-decisions for us. This way of thinking about programming takes some
-practice.
-
-Our full Fraction class to this point would look like the following. You
-may want to try to compile and run the short test program provided just
-to see what happens.
-
-.. activecode:: fraction1
-    :language: java
-    :sourcefile: Fraction.java
-
-    public class Fraction {
-
-        private Integer numerator;
-        private Integer denominator;
-
-        public Fraction(Integer num, Integer den) {
-            this.numerator = num;
-            this.denominator = den;
+    "use strict"
+    class Fraction {
+        constructor(num, den) {
+            this._num = num;
+            this._den = den;
         }
 
-        public Fraction(Integer num) {
-            this.numerator = num;
-            this.denominator = 1;
+        toString() {
+            return `${this.numerator} / ${this.denominator}`;
         }
 
-        public Fraction add(Fraction other) {
-            Integer newNum, newDen, common;
-
-            newNum = other.getDenominator()*this.numerator + this.denominator*other.getNumerator();
-            newDen = this.denominator * other.getDenominator();
-            common = gcd(newNum,newDen);
-            return new Fraction(newNum/common, newDen/common );
+        get numerator() {
+            return this._num;
         }
 
-        public Fraction add(Integer other) {
-            return add(new Fraction(other));
+        get denominator() {
+            return this._den;
         }
 
-        private static Integer gcd(Integer m, Integer n) {
+        set numerator(val) {
+            console.log("error cannot set the numerator");
+        }
+
+        gcd(m, n) {
             while (m % n != 0) {
-                Integer oldm = m;
-                Integer oldn = n;
-                m = oldn;
-                n = oldm%oldn;
+                let oldm = m
+                let oldn = n
+
+                m = oldn
+                n = oldm % oldn
             }
-            return n;
+            return n
         }
 
-        public static void main(String[] args) {
-            Fraction f1 = new Fraction(1,2);
-            Fraction f2 = new Fraction(2,3);
-
-            System.out.println(f1.mul(f2));
-            System.out.println(f1.add(1));
+        add(other) {
+            let newDen = this.denominator * other.denominator
+            let newNum = this.numerator * other.denominator + other.numerator * this.denominator
+            let common = this.gcd(this.denominator, other.denominator)
+            return new Fraction(newNum / common, newDen / common)
         }
 
     }
+
+    let x = new Fraction(2,3);
+    let y = new Fraction(1,6);
+    writeln("x is " + x)
+    writeln(x.numerator)
+    writeln("x+y = " + x.add(y))
+
+Adding methods to your class is easy and the syntax is very clean. But it may feel a little strange to not have the word function or def in front of the method name.   In all method the word ``this`` refers to the current object.  Just like ``self`` does in Python.  You will notice that you do NOT have to supply this as the first parameter to each method!
+
+Practice Exercises
+~~~~~~~~~~~~~~~~~~
+
+.. actex:: frac_1
+    :language: javascript
+
+    Write an equals method for the fraction class that returns true is two fractions are equal and false otherwise.
+    ~~~~
+    // Your code here
+
+.. actex:: frac_2
+    :language: javascript
+
+    Write sub, mul, and div for the Fraction class.
+    ~~~~
+    // Your code here
+
+.. actex:: classes_1
+    :language: javascript
+
+    Write a class that represents a Rectangle.  Your constructor should take a length and a width.  Write an area method that returns the area of the rectangle.
+    ~~~~
+    // Your code here
+
+.. actex:: classes_2
+    :language: javascript
+
+    Write a class  **the old way** that represents a Rectangle.  Your constructor should take a length and a width.  Write an area method that returns the area of the rectangle.
+    ~~~~
+    // Your code here
+
+.. actex:: classes_3
+    :language: javascript
+
+    Write a class ``Stack`` that implements the stack data type, with a push, pop, peek, size, and isEmpty as the methods.
+    ~~~~
+    // Your code here
+
+.. actex:: classes_4
+    :language: javascript
+
+    Write a class ``Queue`` that implements the queu data type, with enqueue, dequeue, peek, size, and isEmpty as the methods.
+    // Your code here
+
 
 Inheritance
 -----------
 
-If you ran the program above you probably noticed that the output is not
-very satisfying. Chances are your output looked something like this:
+Javascript also supports inheritance.  Here is a common example from Python.
 
-::
+.. activecode:: animals_py_1
 
-    Fraction@7b11a3ac
-    Fraction@6c22c95b
+    class Animal:
 
-The reason is that we have not yet provided a friendly string
-representation for our Fraction objects. The truth is that, just like in
-Python, whenever an object is printed by the ``println`` method it must
-be converted to string format. In Python you can control how that looks
-by writing an ``__str__`` method for your class. If you do not then you
-will get the default, which looked something like the above.
+        def __init__(self,name):
+            self._name = name
 
-The ``Object`` Class
-~~~~~~~~~~~~~~~~~~~~
+        def speak(self):
+            print("Generic Animals are mute")
 
-In Java, the equivalent of ``__str__`` is the ``toString`` method. Every
-object in Java already has a ``toString`` method defined for it because
-every class in Java automatically inherits from the Object class. The
-object class provides default implementations for the following
-functions.
+        def get_name(self):
+            return "My name is {}".format(self._name)
 
--  clone
+        name = property(get_name)
 
--  equals
 
--  finalize
+    class Dog(Animal):
+        def __init__(self,name):
+            Animal.__init__(self,name) # super.__init__(name) in Python 3
+            self.numLegs = 4
 
--  getClass
 
--  hashCode
+        def speak(self):
+            print("woof woof")
 
--  notify
+    class CartoonDog(Dog):
 
--  notifyAll
+        def speak(self):
+            print("I'll have a dry martini.")
 
--  toString
+    spot = Dog("spot")
+    print(spot.name)
+    spot.speak()
 
--  wait
+    brian = CartoonDog("Brian")
+    brian.speak()
+    print(brian.name)
 
-We are not interested in most of the functions on that list, and many
-Java programmers live happy and productive lives without knowing much
-about most of the functions on that list. However, to make our output
-nicer we will implement the ``toString`` method for the ``Fraction``
-class. A simple version of the method is provided below.
 
-::
+.. activecode:: animals_js_1
+    :language: javascript
 
-    public String toString() {
-        return numerator.toString() + "/" + denominator.toString();
+    "use strict"
+    class Animal {
+        constructor(name) {
+            this._name = name
+        }
+
+        speak() {
+            writeln("Generic animals are Mute")
+        }
+
+        get name() {
+            return this._name;
+        }
     }
 
-The other important class for us to implement from the list of methods
-inherited from Object is the ``equals`` method. When two objects are
-compared in Java using the == operator they are tested to see if they
-are exactly the same object, that is do the two objects occupy the same
-exact space in the computers memory. This is the default behavior of the
-``equals`` method provided by Object. The ``equals`` method allows us to
-decide if two objects are equal by looking at their instance variables.
-However it is important to remember that since Java does not have
-operator overloading if you want to use your equals method you must call
-it directly. Therefore once you write your own ``equals`` method:
+    class Dog extends Animal {
 
-::
+        constructor(name) {
+            super(name);
+            this.numLegs = 4;
+        }
 
-    object1 == object2
-
-is NOT the same as
-
-::
-
-    object1.equals(object2)
-
-Here is an equals method for the Fraction class:
-
-::
-
-    public boolean equals(Fraction other) {
-        Integer num1 = this.numerator * other.getDenominator();
-        Integer num2 = this.denominator * other.getNumerator();
-        if (num1 == num2)
-            return true;
-        else
-            return false;
+        speak() {
+            writeln("woof woof");
+        }
     }
 
-One important thing to remember about ``equals`` is that it only checks
-to see if two objects are equal it does not have any notion of less than
-or greater than. We’ll see more about that shortly.
+    class CartoonDog extends Dog {
 
-Abstract Classes and Methods
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If we want to make our Fraction class behave like Integer, Double, and
-the other numeric classes in Java We need to make a couple of additional
-modifications to the class. The first thing we will do is plug
-``Fraction`` into the Java class hierarchy at the same place as Integer
-and its siblings. If you look at the documentation for Integer you will
-see that Integer’s parent class is ``Number``. Number is an **abstract
-class** that specifies several methods that all of its children must
-implement. In Java an abstract class is more than just a placeholder for
-common functions. In Java an abstract class has the power to specify
-certain functions that all of its children **must** implement. You can
-trace this power back to the strong typing nature of Java.
-
-The that makes the Fraction class a child of Number is as follows:
-
-::
-
-    public class Fraction extends Number {
-        ...
-    }
-
-The keyword extends tells the compiler that the class ``Fraction``
-extends, or adds new functionality to the ``Number`` class. A child
-class always extends its parent.
-
-The methods we must implement if ``Fraction`` is going to be a child of
-``Number`` are:
-
--  longValue
-
--  intValue
-
--  floatValue
-
--  doubleValue
-
-This really isn’t much work for us to implement these functions as all
-we have to do is some conversion of our own and some division. The
-implementation of these methods is as follows:
-
-::
-
-    public double doubleValue() {
-        return numerator.doubleValue() / denominator.doubleValue();
-    }
-
-
-    public float floatValue() {
-        return numerator.floatValue() / denominator.floatValue();
-    }
-
-
-    public int intValue() {
-        return numerator.intValue() / denominator.intValue();
-    }
-
-
-    public long longValue() {
-        return numerator.longValue() / denominator.longValue();
-    }
-
-By having the ``Fraction`` class extend the ``Number`` class we can now
-pass a ``Fraction`` to any Java function that specifies it can receive a
-``Number`` as one of its parameters. For example many Java user
-interface methods accept any object that is a subclass of ``Number`` as
-a parameter. In Java the class hierarchy and the IS-A relationships are
-very important. Whereas in Python you can pass any kind of object as a
-parameter to any function the strong typing of Java makes sure that you
-only pass an object as a parameter that is of the type specified in the
-function call or one of its children. So, in this case when you see a
-parameter of type ``Number`` its important to remember that an
-``Integer`` *is-a* ``Number`` and a ``Double`` *is-a* ``Number`` and a
-``Fraction`` *is-a* ``Number``.
-
-However, and this is a big however, it is also important to remember
-that if you specify ``Number`` as the type on a particular parameter
-then the Java compiler will only let you use the methods of a
-``Number``. In this case longValue, intValue, floatValue, and
-doubleValue.
-
-Lets suppose you define a method in some class as follows:
-
-::
-
-    public void test(Number a, Number b) {
-        a.add(b);
-    }
-
-The Java compiler would give an error because ``add`` is not a defined
-method of the ``Number`` class. Even if you called the add method and
-passed two ``Fractions`` as parameters.
-
-Interfaces
-----------
-
-Lets turn our attention to making a list of fractions sortable by the
-standard Java sorting method ``Collections.sort``. In Python all we
-would need to do is implement the ``__cmp__`` method. But in Java we
-cannot be that informal. In Java Things that are sortable must be
-``Comparable``. Your first thought might be that ``Comparable`` is
-Superclass of ``Number``. That would be a good thought but it would not
-be correct. Java only supports single inheritance, that is, a class can
-have only one parent. Although it would be possible to add an additional
-Layer to the class hierarchy it would also complicate things
-dramatically. Because Not only are Numbers comparable, but Strings are
-also Comparable as would many other types. For example we might have a
-``Student`` class and we want to be able to sort Students by their gpa.
-But ``Student`` already extends the class ``Person`` for which we have
-no natural comparison function.
-
-Java’s answer to this problem is the ``Interface`` mechanism. Interfaces
-are like a combination of Inheritance and contracts all rolled into one.
-An interface is a *specification* that says any object that claims it
-implements this interface must provide the following methods. It sounds
-a little bit like an abstract class, however it is outside the
-inheritance mechanism. You can never create an instance of
-``Comparable``. Many objects, however, do implement the ``Comparable``
-interface. What does the Comparable interface specify?
-
-The ``Comparable`` interface says that any object that claims to be
-``Comparable`` must implement the ``compareTo`` method. The following is
-the documentation for the ``compareTo`` method as specified by the
-Comparable interface.
-
-::
-
-    int compareTo(T o)
-
-     Compares this object with the specified object for order. Returns a negative integer, zero, or a
-    positive integer as this object is less than, equal to, or greater than the specified object. The
-    implementor must ensure sgn(x.compareTo(y)) == -sgn(y.compareTo(x)) for all x and y. (This implies
-    that x.compareTo(y) must throw an exception iff y.compareTo(x) throws an exception.)
-
-    The implementor must also ensure that the relation is transitive: (x.compareTo(y)>0 &&
-    y.compareTo(z)>0) implies x.compareTo(z)>0.
-
-    Finally, the implementor must ensure that x.compareTo(y)==0 implies that sgn(x.compareTo(z)) ==
-    sgn(y.compareTo(z)), for all z.
-
-    It is strongly recommended, but not strictly required that (x.compareTo(y)==0) == (x.equals(y)).
-    Generally speaking, any class that implements the Comparable interface and violates this condition
-    should clearly indicate this fact. The recommended language is "Note: this class has a natural
-    ordering that is inconsistent with equals."
-
-    In the foregoing description, the notation sgn(expression) designates the mathematical signum
-    function, which is defined to return one of -1, 0, or 1 according to whether the value of
-    expression is negative, zero or positive.
-
-To make our ``Fraction`` class ``Comparable`` we must modify the class
-declaration line as follows:
-
-::
-
-    public class Fraction extends Number implements Comparable<Fraction> {
-        ...
-    }
-
-The specification ``Comparable<Fraction>`` makes it clear that Fraction
-is only comparable with another Fraction. The ``compareTo`` method could
-be implemented as follows:
-
-::
-
-    public int compareTo(Fraction other) {
-        Integer num1 = this.numerator * other.getDenominator();
-        Integer num2 = this.denominator * other.getNumerator();
-        return num1 - num2;
-    }
-
-Static member variables
------------------------
-
-Suppose that you wanted to write a Student class so that the class could
-keep track of the number of students it had created. Although you could
-do this with a global counter variable that is an ugly solution. The
-right way to do it is to use a static variable. In Python we could do
-this as follows:
-
-.. activecode:: pystudent
-    :language: python
-
-    class Student:
-        numStudents = 0
-
-        def __init__(self, id, name):
-            self.id = id
-            self.name = name
-
-            Student.numStudents = Student.numStudents + 1
-
-    def main():
-        for i in range(10):
-            s = Student(i,"Student-"+str(i))
-        print 'The number of students is: ', Student.numStudents
-
-    main()
-
-In Java we would write this same example using a static declaration.
-
-.. activecode:: studentclass
-    :language: java
-    :sourcefile: Student.java
-
-    public class Student {
-            public static Integer numStudents = 0;
-
-            private int id;
-            private String name;
-
-            public Student(Integer id, String name) {
-            this.id = id;
-            this.name = name;
-
-            numStudents = numStudents + 1;
-            }
-
-            public static void main(String[] args) {
-            for(Integer i = 0; i < 10; i++) {
-                Student s = new Student(i,"Student"+i.toString());
-            }
-            System.out.println("The number of students: "+Student.numStudents.toString());
-            }
-        }
-
-
-In this example notice that we create a static member variable by using
-the static modifier on the variable declaration. Once a variable has
-been declared static in Java it can be access from inside the class
-without prefixing the name of the class as we had to do in Python.
-
-Static Methods
---------------
-
-We have already discussed the most common static method of all,
-``main``. However in our Fraction class we also implemented a method to
-calculate the greatest common divisor for two fractions (``gdc``). There
-is no reason for this method to be a member method since it takes two
-``Integer`` values as its parameters. Therefore we declare the method to
-be a static method of the class. Furthermore since we are only going to
-use this ``gcd`` method for our own purposes we can make it private.
-
-::
-
-    private static Integer gcd(Integer m, Integer n) {
-        while (m % n != 0) {
-            Integer oldm = m;
-            Integer oldn = n;
-            m = oldn;
-            n = oldm%oldn;
-        }
-        return n;
-    }
-
-Full Implementation of the Fraction Class
------------------------------------------
-
-A final version of the Fraction class that exercises all of the features
-we have discussed is as follows.
-
-.. activecode:: fullfraction
-    :language: java
-    :sourcefile: Fraction.java
-
-    import java.util.ArrayList;
-    import java.util.Collections;
-
-    public class Fraction extends Number implements Comparable<Fraction> {
-
-        private Integer numerator;
-        private Integer denominator;
-
-        /** Creates a new instance of Fraction */
-        public Fraction(Integer num, Integer den) {
-            this.numerator = num;
-            this.denominator = den;
-        }
-
-        public Fraction(Integer num) {
-            this.numerator = num;
-            this.denominator = 1;
-        }
-
-        public Fraction add(Fraction other) {
-            Integer newNum = other.getDenominator()*this.numerator + this.denominator*other.getNumerator();
-            Integer newDen = this.denominator * other.getDenominator();
-            Integer common = gcd(newNum,newDen);
-            return new Fraction(newNum/common, newDen/common );
-        }
-
-        public Fraction add(Integer other) {
-            return add(new Fraction(other));
-        }
-
-        public Integer getNumerator() {
-            return numerator;
-        }
-
-        public void setNumerator(Integer numerator) {
-            this.numerator = numerator;
-        }
-
-        public Integer getDenominator() {
-            return denominator;
-        }
-
-        public void setDenominator(Integer denominator) {
-            this.denominator = denominator;
-        }
-
-        public String toString() {
-            return numerator.toString() + "/" + denominator.toString();
-        }
-
-        public boolean equals(Fraction other) {
-            Integer num1 = this.numerator * other.getDenominator();
-            Integer num2 = this.denominator * other.getNumerator();
-            if (num1 == num2)
-                return true;
-            else
-                return false;
-        }
-
-        public double doubleValue() {
-            return numerator.doubleValue() / denominator.doubleValue();
-        }
-
-        public float floatValue() {
-            return numerator.floatValue() / denominator.floatValue();
-        }
-
-        public int intValue() {
-            return numerator.intValue() / denominator.intValue();
-        }
-
-        public long longValue() {
-            return numerator.longValue() / denominator.longValue();
-        }
-
-        public int compareTo(Fraction other) {
-            Integer num1 = this.numerator * other.getDenominator();
-            Integer num2 = this.denominator * other.getNumerator();
-            return num1 - num2;
-        }
-
-        private static Integer gcd(Integer m, Integer n) {
-            while (m % n != 0) {
-                Integer oldm = m;
-                Integer oldn = n;
-                m = oldn;
-                n = oldm%oldn;
-            }
-            return n;
-        }
-
-        public static void main(String[] args) {
-            Fraction f1 = new Fraction(1,2);
-            Fraction f2 = new Fraction(2,3);
-            Fraction f3 = new Fraction(1,4);
-
-            System.out.println(f1.add(1));
-            System.out.println(f1.intValue());
-            System.out.println(f1.doubleValue());
-
-            ArrayList<Fraction> myFracs = new ArrayList<Fraction>();
-            myFracs.add(f1);
-            myFracs.add(f2);
-            myFracs.add(f3);
-            Collections.sort(myFracs);
-
-            for(Fraction f : myFracs) {
-                System.out.println(f);
-            }
+        speak() {
+            writeln("I'll have a dry martini")
         }
 
     }
 
-Common Mistakes
-===============
+    spot = new Dog('spot');
+    spot.speak();
+    writeln(spot.numLegs);
+    brian = new CartoonDog('Brian')
+    brian.speak()
+    writeln(brian.name)
 
+Practice Exercises
+~~~~~~~~~~~~~~~~~~
 
-    -  **Forgetting to declare your variables.**
+.. actex:: class_inh_1
+    :language: javascript
 
-       ::
-
-           Histo.java:21: cannot find symbol
-           symbol  : variable count
-           location: class Histo
-                   count = new ArrayList<Integer>(10);
-                   ^
-
-    -  **Not importing a class**:
-
-       ::
-
-            Histo.java:9: cannot find symbol
-            symbol  : class Scanner
-            location: class Histo
-                    Scanner data = null;
-                    ^
-
-    -  **Forgetting to use the new keyword to create an object.** Here’s
-       an example of the error message that occurs when you forget to
-       use the new keyword. Notice that the message is pretty unhelpful.
-       Java *thinks* you are trying to call the Method Scanner, but
-       there are two problems. First Scanner is not really a method it
-       is a constructor.:
-
-       ::
-
-            Histo.java:14: cannot find symbol
-            symbol  : method Scanner(java.io.File)
-            location: class Histo
-                            data = Scanner(new File("test.dat"));
-                                   ^
-
-    -  **Forgetting a Semicolon**:
-
-       ::
-
-           Histo.java:19:
-           ';' expected
-                       System.exit(0);
-                       ^
-
-    -  Forgetting to declare the kind of object in a container.:
-
-       ::
-
-             Note: Histo.java uses unchecked or unsafe operations. Note:
-             Recompile with -Xlint:unchecked for details.
-
-
-
-Naming Conventions
-==================
-
-{sec:naming\_conventions}
-
-Java has some very handy naming conventions.
-
--  Class names always start with an upper case letter. For example,
-   ``Scanner``, ``System``, ``Hello``
-
--  Method names always start with a lower case letter, and use camelCase
-   to represent multiword method names. for example ``nextInt()``
-
--  Instance variables of a class start with a lower case letter and use
-   camelCase
-
--  Constants are in all upper case letters. for example ``Math.MAXINT``
-
-Java Documentation Online
-=========================
-
-All Java class libraries are documented and available online. Here are
-two good resources for you to use:
-
--  `JavaDoc <http://www.javadoconline.com>`_ The Javadoconline website
-   provides a nice searchable interface. Search for a classname and you
-   will get the documentation you are looking for.
-
--  `JavaAPI <http://knuth.luther.edu/Javadoc/docs/api/index.html>`_
-   contains the same information but in a browsable format. If you don’t
-   know the class name exactly this is a good way to see what is close.
-
-In general the Javadoc page for any class contains information about:
-
--  Where this class falls in the class hierarchy. What classes are its
-   parents and what classes are its decendents.
-
--  A summary and some examples of using the class.
-
--  A summary listing of instance variables
-
--  A summary listing of Constructors
-
--  A summary listing of Methods
-
--  Detailed documentation on constructors and methods.
-
-Typically the Javadoc pages are constructed from the source code where
-the class is implemented. This encourages Java programmers to do a good
-job of documenting their code, while providing a user friendly way to
-read the documentation without looking at the code directly.
+    Write a class Cat that inherits from Animal.
+    ~~~~
+    // Your code here
