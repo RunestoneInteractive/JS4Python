@@ -730,11 +730,12 @@ The latest version of Javascript adds two very welcome additions!  Multiline and
 .. activecode:: jsmultiline
     :language: javascript
 
-    mlstr = `Hello world
+    mlstr = \`Hello world
     this is a "multi-line."
     Isn't it nice.
     string.
-    `
+    \`
+
     writeln(mlstr);
     alert(mlstr);
 
@@ -1222,3 +1223,41 @@ Translate the following into Javascript
             return total
     ~~~~
     # Your code here
+
+
+
+.. actex:: jsbasics_2
+    :language: javascript
+
+    Write a function that accepts an array of numbers and returns the largest number in the array.
+    ~~~~
+    // Your code here
+
+
+.. actex:: jsbasic_3
+    :language: javascript
+
+    Write a function that constructs an Array containing the first 10 prime numbers
+    ~~~~
+    // Your code here
+
+.. actex:: jsbasic_4
+    :language: javscript
+
+    Write a function that removes all occurrences of a given letter from a string. The first parameter should be the letter and the second parameter the string.
+
+.. actex:: jsbasic_5
+    :language: javscript
+
+    Write a function that takes a string as a parameter and returns the reversed string
+
+.. actex:: jsbasic_6
+    :language: javscript
+
+    Write a function that takes an integer as an argument and returns the number of digits in the integer.
+
+
+.. actex:: jsbasic_7
+    :language: javscript
+
+    Write a function that recognizes palindromes.  The function takes a string as a parameter and returns true if the string is a palindrome and false if it is not
