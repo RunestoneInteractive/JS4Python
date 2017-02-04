@@ -33,7 +33,7 @@ options(
         template_args={'course_id': 'JS4Python',
                        'login_required':'true',
                        'appname':master_app,
-                       'loglevel': 0,
+                       'loglevel': 10,
                        'course_url':master_url,
                        'use_services': 'true',
                        'python3': 'true',
