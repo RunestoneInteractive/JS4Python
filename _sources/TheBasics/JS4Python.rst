@@ -86,8 +86,8 @@ version of hello world for Python:
 ::
 
     def main():
-        print "Hello World!"
-
+        print("Hello World!")
+)
 Remember that we can define this program right at the Python command
 line and then run it:
 
@@ -243,16 +243,16 @@ simple example in both Python and Javascript.
 
     grade = int(input('enter a grade'))
     if grade < 60:
-        print 'F'
+        print('F')
     elif grade < 70:
-        print 'D'
+        print('D')
     elif grade < 80:
-        print 'C'
+        print('C')
     elif grade < 90:
-        print 'B'
+        print('B')
     else:
-        print 'A'
-
+        print('A')
+)
 In Javascript we have a couple of ways to write this
 
 .. activecode:: javaelif
@@ -412,8 +412,8 @@ in conjunction with the range function. For example:
 ::
 
     for i in range(10):
-       print i
-
+       print(i)
+)
 In Javascript we would write this as:
 
 ::
@@ -449,8 +449,8 @@ Python loop would be written as:
 ::
 
     for i in range(100,-1,-5):
-        print i
-
+        print(i)
+)
 In Javascript we would write this as:
 
 ::
@@ -469,8 +469,8 @@ In Python we can iterate over a list as follows:
 
     l = [1, 1, 2, 3, 5, 8, 13, 21]
     for fib in l:
-       print fib
-
+       print(fib)
+)
 In Javascript we can iterate over an Array of integers too:
 
 .. activecode:: arrayiter
@@ -574,8 +574,8 @@ Lets look at a simple example that demonstrates some ideas with numbers.
     def main():
         fahr = int(input("Enter the temperature in F: "))
         cel = (fahr - 32) * 5.0/9.0
-        print "the temperature in C is: ", cel
-
+        print("the temperature in C is: ", cel)
+)
     main()
 
 Next, lets look at the Javascript Equivalent.
@@ -1152,8 +1152,8 @@ for this job could look like this:
 
        keyList = sorted(count.keys())
        for k in keyList:
-           print "%-20s occurred %4d times"%(k, count[k])
-
+           print("%-20s occurred %4d times"%(k, count[k])
+)
    main()
 
    Notice that the structure of the program is very similar to the numeric
@@ -1245,19 +1245,27 @@ Translate the following into Javascript
     :language: javscript
 
     Write a function that removes all occurrences of a given letter from a string. The first parameter should be the letter and the second parameter the string.
+    ~~~~
+    // Your code here
 
 .. actex:: jsbasic_5
     :language: javscript
 
     Write a function that takes a string as a parameter and returns the reversed string
+    ~~~~
+    // Your code here
 
 .. actex:: jsbasic_6
     :language: javscript
 
     Write a function that takes an integer as an argument and returns the number of digits in the integer.
+    ~~~~
+    // Your code here
 
 
 .. actex:: jsbasic_7
     :language: javscript
 
     Write a function that recognizes palindromes.  The function takes a string as a parameter and returns true if the string is a palindrome and false if it is not
+    ~~~~
+    // Your code here
