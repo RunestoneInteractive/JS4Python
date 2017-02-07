@@ -7,7 +7,7 @@ The following Quiz is for me to assess what you already know about Javascript.  
     :prefix: pretest-
     :start: 1
 
-.. timed:: javascript_pretest
+.. timed:: javascript_pretest1
     :timelimit: 30
 
     .. mchoice:: pt_1

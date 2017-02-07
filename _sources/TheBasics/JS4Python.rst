@@ -1242,21 +1242,21 @@ Translate the following into Javascript
     // Your code here
 
 .. actex:: jsbasic_4
-    :language: javscript
+    :language: javascript
 
     Write a function that removes all occurrences of a given letter from a string. The first parameter should be the letter and the second parameter the string.
     ~~~~
     // Your code here
 
 .. actex:: jsbasic_5
-    :language: javscript
+    :language: javascript
 
     Write a function that takes a string as a parameter and returns the reversed string
     ~~~~
     // Your code here
 
 .. actex:: jsbasic_6
-    :language: javscript
+    :language: javascript
 
     Write a function that takes an integer as an argument and returns the number of digits in the integer.
     ~~~~
@@ -1264,7 +1264,7 @@ Translate the following into Javascript
 
 
 .. actex:: jsbasic_7
-    :language: javscript
+    :language: javascript
 
     Write a function that recognizes palindromes.  The function takes a string as a parameter and returns true if the string is a palindrome and false if it is not
     ~~~~
