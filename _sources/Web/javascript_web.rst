@@ -4,20 +4,35 @@ Part III: Web Programming
 The Document Object Model
 =========================
 
+When the web browser receives the HTML for a web page the first thing it does is construct a tree representation of the page.  This allows the browser to have a structured data representation of the page rather than an unstructured text representation to work with.  This heirarchical tree representaiton of the web page is called the document object model or the DOM.  Understanding the DOM is critical if you want to be able to use Javascript in the browser.
+Suppose we have the following source for a web page:
 
+.. activecode:: simplepage1
+   :language: html
 
+   <html>
+       <body>
+            <h1>Hello World</h1>
+            <button>Push Me Pull You</button>
+            <script>
+            function foo() {
+                alert("Hello World")
+            }
+            </script>
+       </body>
+   </html>
 
 
 .. image:: Figures/simpledom.svg
 
 
-In the previous example we have a name ``document`` as you may have guessed this document name refers to the entire HTML document (or page).  More technically, document is a name that refers to an **object**.  That object is the representation of the page.
+When we are accessing the DOM from Javascript, we have a name ``document`` as you may have guessed this document name refers to the entire HTML document (or page).  More technically, document is a name that refers to an **object**.  That object is the representation of the page.
 
-Earlier we said that objects know things, and know how to do things, the terminology for the things that objects know is that objects have **attributes** attributes on objects serve the same purpose as attributes of tags, they contain some property of the object.   For example ``document.height`` tells us how many pixels high the entire page is.  Our example illustrates several other attributes:
+Since Javascript is an object oriented language, and OO languages support objects that have attributes and methods, we would expect that the document object has methods and attributes.   For example ``document.height`` tells us how many pixels high the entire page is.  The example below illustrates several other attributes:
 
 * document.body
 * document.body.style
-* or more specifically document.body.style.backgroundColor  (and the others you probably discovered)
+* or more specifically document.body.style.backgroundColor  
 * document.body.innerHTML
 
 We can use these attributes in two ways.  First, we can use attributes to ask the object a question.  For example  ``document.body.style.backgroudColor`` could be interpreted as asking the document "tell me your background color".
@@ -67,6 +82,8 @@ Our goal is to change the ``h1`` without changing the rest of the page.  Lets tr
          </script>
       </body>
    </html>
+
+
 
 The reason this will not work is that the body may contain many ``h1`` tags.  So we need a way to identify, and "get a handle on" the exact h1 that we want to change.
 
