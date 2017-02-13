@@ -87,7 +87,7 @@ version of hello world for Python:
 
     def main():
         print("Hello World!")
-)
+
 Remember that we can define this program right at the Python command
 line and then run it:
 
@@ -252,7 +252,7 @@ simple example in both Python and Javascript.
         print('B')
     else:
         print('A')
-)
+
 In Javascript we have a couple of ways to write this
 
 .. activecode:: javaelif
@@ -413,7 +413,7 @@ in conjunction with the range function. For example:
 
     for i in range(10):
        print(i)
-)
+
 In Javascript we would write this as:
 
 ::
@@ -450,7 +450,7 @@ Python loop would be written as:
 
     for i in range(100,-1,-5):
         print(i)
-)
+
 In Javascript we would write this as:
 
 ::
@@ -470,7 +470,7 @@ In Python we can iterate over a list as follows:
     l = [1, 1, 2, 3, 5, 8, 13, 21]
     for fib in l:
        print(fib)
-)
+
 In Javascript we can iterate over an Array of integers too:
 
 .. activecode:: arrayiter
@@ -575,7 +575,7 @@ Lets look at a simple example that demonstrates some ideas with numbers.
         fahr = int(input("Enter the temperature in F: "))
         cel = (fahr - 32) * 5.0/9.0
         print("the temperature in C is: ", cel)
-)
+
     main()
 
 Next, lets look at the Javascript Equivalent.
@@ -1152,8 +1152,8 @@ for this job could look like this:
 
        keyList = sorted(count.keys())
        for k in keyList:
-           print("%-20s occurred %4d times"%(k, count[k])
-)
+           print("%-20s occurred %4d times"%(k, count[k]))
+
    main()
 
    Notice that the structure of the program is very similar to the numeric

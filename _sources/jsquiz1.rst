@@ -40,6 +40,7 @@ The following Quiz is for me to assess what you already know about Javascript.  
         :answer_b: ReferenceError: y is not defined
         :answer_c: NaN then 11
         :answer_d: 110 then 11
+        :correct: c
 
         What is the output of the following?
 
@@ -117,6 +118,7 @@ The following Quiz is for me to assess what you already know about Javascript.  
         What is the output of the following?
 
         ::
+
             l = ['a', 'b', 'c']
             for (var i in l) {
                 console.log(i)
@@ -132,6 +134,7 @@ The following Quiz is for me to assess what you already know about Javascript.  
         What is the output of the following?
 
         ::
+            
             l = ['a', 'b', 'c']
             for (let i=0; i < l.length; i++) {
                 console.log(l[i])
