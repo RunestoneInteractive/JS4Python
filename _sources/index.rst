@@ -3,20 +3,18 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. toc_version: 2
+
 =================================
 Javascript for Python Programmers
 =================================
 
 .. toctree::
-
-    preface.rst
-    pretest.rst
-
-.. toctree::
    :maxdepth: 2
    :numbered:
 
-   TheBasics/JS4Python.rst
+   preface.rst
+   TheBasics/toctree.rst
    ObjectOriented/javascript_classes.rst
    Web/javascript_web.rst
 

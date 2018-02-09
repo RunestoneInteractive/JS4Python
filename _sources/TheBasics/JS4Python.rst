@@ -1,6 +1,3 @@
-Part I: The Basics
-::::::::::::::::::
-
 Introduction
 ============
 
