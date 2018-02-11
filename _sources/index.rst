@@ -9,14 +9,20 @@
 Javascript for Python Programmers
 =================================
 
+.. raw:: html
+
+   <ul>
+   <li><a href="/runestone/assignments/chooseAssignment.html">Assignments</a></li>
+   </ul>
+
 .. toctree::
    :maxdepth: 2
    :numbered:
 
    preface.rst
    TheBasics/toctree.rst
-   ObjectOriented/javascript_classes.rst
-   Web/javascript_web.rst
+   ObjectOriented/toctree.rst
+   Web/toctree.rst
 
 Back Matter
 :::::::::::

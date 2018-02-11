@@ -13,8 +13,8 @@ sys.path.append(os.getcwd())
 home_dir = os.getcwd()
 master_url = None
 if master_url is None:
-    if gethostname() in ['web407.webfaction.com', 'rsbuilder']:
-        master_url = 'http://interactivepython.org'
+    if gethostname() in ['runestone-deploy', 'rsbuilder']:
+        master_url = 'https://runestone.academy'
     else:
         master_url = 'http://127.0.0.1:8000'
 master_app = 'runestone'
@@ -31,7 +31,7 @@ options(
         confdir=".",
         project_name = "JS4Python",
         template_args={'course_id': 'JS4Python',
-                       'login_required':'true',
+                       'login_required':'false',
                        'appname':master_app,
                        'loglevel': 10,
                        'course_url':master_url,

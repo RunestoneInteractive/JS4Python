@@ -2,3 +2,4 @@ build/*
 build_info
 *.pyc
 __pycache__/*
+.idea

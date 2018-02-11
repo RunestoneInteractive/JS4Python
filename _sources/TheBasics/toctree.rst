@@ -3,8 +3,14 @@ Part I: The Basics
 
 
 .. toctree::
-   :caption: Recursion
+   :caption: Javascript Basics
    :maxdepth: 2
 
    pretest.rst
    JS4Python.rst
+   conditionals.rst
+   loops.rst
+   datatypes.rst
+   collections.rst
+   Exercises.rst
+   

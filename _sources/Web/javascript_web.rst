@@ -1,6 +1,3 @@
-Part III: Web Programming
-:::::::::::::::::::::::::
-
 The Document Object Model
 =========================
 
