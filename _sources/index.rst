@@ -22,6 +22,7 @@ Javascript for Python Programmers
    preface.rst
    TheBasics/toctree.rst
    ObjectOriented/toctree.rst
+   Advanced/toctree.rst
    Web/toctree.rst
 
 Back Matter
