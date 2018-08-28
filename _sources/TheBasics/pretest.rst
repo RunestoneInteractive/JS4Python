@@ -123,7 +123,7 @@ The following Quiz is for me to assess what you already know about Javascript.  
         How do you declare a JavaScript variable?
 
     .. mchoice:: pt_13
-        :answer_a: Its an error
+        :answer_a: It is an error
         :answer_b: 'a', 'b', 'c'  - each on their own line
         :answer_c: 1, 2, 3  - each on their own line
         :answer_d: 0, 1, 2  - each on their own line
@@ -139,7 +139,7 @@ The following Quiz is for me to assess what you already know about Javascript.  
             }
 
     .. mchoice:: pt_14
-        :answer_a: Its an error
+        :answer_a: It is an error
         :answer_b: 'a', 'b', 'c'  - each on their own line
         :answer_c: 1, 2, 3  - each on their own line
         :answer_d: 0, 1, 2  - each on their own line
@@ -149,6 +149,7 @@ The following Quiz is for me to assess what you already know about Javascript.  
 
         ::
 
+            l = ['a', 'b', 'c']
             for (var i in l) {
                 console.log(i)
             }
