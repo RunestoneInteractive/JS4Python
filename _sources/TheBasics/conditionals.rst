@@ -1,7 +1,7 @@
 Conditionals
 ============
 
-Conditional statements in Python and Javascript are very similar. In Python we
+Conditional statements in Python and JavaScript are very similar. In Python we
 have three patterns:
 
 Simple if
@@ -14,7 +14,7 @@ Simple if
         statement2
         ...
 
-In Javascript this same pattern is simply written as:
+In JavaScript this same pattern is simply written as:
 
 ::
 
@@ -24,10 +24,10 @@ In Javascript this same pattern is simply written as:
         ...
     }
 
-Once again you can see that in Javascript the curly braces define a block
-rather than indentation. In Javascript the parenthesis around the condition
-are required because if is technically a function that evaluates to True
-or False.
+Once again you can see that in JavaScript the curly braces define a block
+rather than indentation. In JavaScript the parenthesis around the condition
+are required because if is technically a function that evaluates to ``True``
+or ``False``.
 
 if else
 -------
@@ -43,7 +43,7 @@ if else
         statement2
         ...
 
-In Javascript this is written as:
+In JavaScript this is written as:
 
 ::
 
@@ -60,9 +60,9 @@ In Javascript this is written as:
 elif
 ----
 
-Javascript does not have an elif pattern like Python. In Javascript you can get the
-functionality of an elif statement by nesting if and else. Here is a
-simple example in both Python and Javascript.
+JavaScript does not have an ``elif`` pattern like Python. In JavaScript you can get the
+functionality of an ``elif`` statement by nesting if and else. Here is a
+simple example in both Python and JavaScript.
 
 .. activecode:: pyelif
     :language: python
@@ -79,7 +79,7 @@ simple example in both Python and Javascript.
     else:
         print('A')
 
-In Javascript we have a couple of ways to write this
+In JavaScript we have a couple of ways to write this
 
 .. activecode:: javaelif
     :language: javascript
@@ -109,8 +109,8 @@ In Javascript we have a couple of ways to write this
     }
 
 
-We can get even closer to the elif statement by taking advantage of the
-Javascript rule that a single statement does not need to be enclosed in curly
+We can get even closer to the ``elif`` statement by taking advantage of the
+JavaScript rule that a single statement does not need to be enclosed in curly
 braces. Since the if is the only statement used in each else we can get
 away with the following.
 
@@ -137,8 +137,8 @@ away with the following.
 switch
 ------
 
-Javascript also supports a ``switch`` statement that acts something like the
-elif statement of Python under certain conditions. To write the grade
+JavaScript also supports a ``switch`` statement that acts something like the
+``elif`` statement of Python under certain conditions. To write the grade
 program using a switch statement we would use the following:
 
 .. activecode:: javaswitch
@@ -171,9 +171,6 @@ program using a switch statement we would use the following:
            writeln('F');
        }
     }
-
-
-main()
 
 The ``switch`` statement is not used very often, and I recommend you do
 not use it! First, it is not as powerful as the ``else if`` model

@@ -3,7 +3,7 @@ Part I: The Basics
 
 
 .. toctree::
-   :caption: Javascript Basics
+   :caption: JavaScript Basics
    :maxdepth: 2
 
    pretest.rst

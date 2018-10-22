@@ -2,8 +2,8 @@ Loops and Iteration
 ===================
 
 You have already seen a couple of examples of iteration and looping in
-Javascript. So this section will just serve as a reference for the differences
-in Syntax.
+JavaScript. So this section will just serve as a reference for the differences
+in syntax.
 
 Definite Loop
 -------------
@@ -16,7 +16,7 @@ in conjunction with the range function. For example:
     for i in range(10):
        print(i)
 
-In Javascript we would write this as:
+In JavaScript we would write this as:
 
 ::
 
@@ -33,7 +33,7 @@ options for controlling the value of the loop variable.
     range(start,stop)
     range(start,stop,step)
 
-The Javascript for loop is really analogous to the last option giving you
+The JavaScript for loop is really analogous to the last option giving you
 explicit control over the starting, stopping, and stepping in the three
 clauses inside the parenthesis. You can think of it this way:
 
@@ -53,15 +53,15 @@ Python loop would be written as:
     for i in range(100,-1,-5):
         print(i)
 
-In Javascript we would write this as:
+In JavaScript we would write this as:
 
 ::
 
     for (let i = 100; i >= 0; i -= 5)
         writeln(i);
 
-In Python the for loop can also iterate over any sequence such as a
-list, a string, or a tuple. Javascript also provides a variation of its for
+In Python the ``for`` loop can also iterate over any sequence such as a
+list, a string, or a tuple. JavaScript also provides a variation of its ``for``
 loop that provides the same functionality in its so called ``for each``
 loop.
 
@@ -73,7 +73,7 @@ In Python we can iterate over a list as follows:
     for fib in l:
        print(fib)
 
-In Javascript we can iterate over an Array of integers too:
+In JavaScript we can iterate over an Array of integers too:
 
 .. activecode:: arrayiter
     :language: javascript
@@ -83,7 +83,7 @@ In Javascript we can iterate over an Array of integers too:
         writeln(i);
     }
 
-The **for of** construct is new in Javascript, you will see lots more code examples written as a **for in**
+The **for of** construct is new in JavaScript, you will see lots more code examples written as a **for in**
 
 .. activecode:: arrayiter2
     :language: javascript
@@ -93,9 +93,9 @@ The **for of** construct is new in Javascript, you will see lots more code examp
         writeln(l[i]);
     }
 
-To be clear in the example above, the loop variable i is an index variable that you use to index into the original array.
+To be clear in the example above, the loop variable ``i`` is an index variable that you use to index into the original array.
 
-To iterate over the characters in a string in Javascript do the following:
+To iterate over the characters in a string in JavaScript do the following:
 
 ::
 
@@ -105,7 +105,7 @@ To iterate over the characters in a string in Javascript do the following:
     }
 
 
-To iterate over the elements in an array in Javascript:
+To iterate over the elements in an array in JavaScript:
 
 ::
 
@@ -114,23 +114,23 @@ To iterate over the elements in an array in Javascript:
     data.forEach(function(d){
         sum += d;
     });
-    writeln(sum)
+    writeln(sum);
 
 
 Indefinite Loops
 ----------------
 
-Both Python and Javascript support the while loop. Recall that in Python the
-while loop is written as:
+Both Python and JavaScript support the ``while`` loop. Recall that in Python the
+``while`` loop is written as:
 
 ::
 
-    while  condition:
+    while condition:
        statement1
        statement2
        ...
 
-In Javascript we add parenthesis and curly braces to get:
+In JavaScript we add parenthesis and curly braces to get:
 
 ::
 
@@ -140,8 +140,8 @@ In Javascript we add parenthesis and curly braces to get:
         ...
     }
 
-Javascript adds an additional, if seldom used variation of the while loop
-called the do loop. The do loop is very similar to while except that the
+JavaScript adds an additional, if seldom used variation of the ``while`` loop
+called the ``do while`` loop. The ``do while`` loop is very similar to ``while`` except that the
 condition is evaluated at the end of the loop rather than the beginning.
 This ensures that a loop will be executed at least one time. Some
 programmers prefer this loop in some situations because it avoids an
