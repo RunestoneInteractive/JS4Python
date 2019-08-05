@@ -1,17 +1,17 @@
 Preface
 =======
 
-Welcome to *Javascript for Python Programmers*. This short ebook is an ongoing
+Welcome to *JavaScript for Python Programmers*. This short ebook is an ongoing
 project to help Computer Science students who have had one or two
-semesters of Python learn the Javascript programming language. If you are not
+semesters of Python learn the JavaScript programming language. If you are not
 a part of that audience you may still find this a useful way to learn
-about Javascript. This book is written using the **build on what you know**
-philosophy. In order to help you learn Javascript I will start with a Python
-example and then implement the example in Javascript. Along the way we will
+about JavaScript. This book is written using the **build on what you know**
+philosophy. In order to help you learn JavaScript I will start with a Python
+example and then implement the example in JavaScript. Along the way we will
 examine the strengths, weaknesses and differences between those two
 languages.
 
-This book does not attempt to replace the many good Javascript reference books
+This book does not attempt to replace the many good JavaScript reference books
 that are available.  Please feel free to use this book for
 yourself, or if it fits a class you are teaching you are welcome to use
 this as a resource for your own class.

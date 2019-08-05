@@ -1,7 +1,7 @@
-Javascript PreTest
+JavaScript PreTest
 ==================
 
-The following Quiz is for me to assess what you already know about Javascript.  It will not count towards you final grade, nor will I look down on you if you don't know any of it.  The point is to not waste time covering things that people already know.  It will also provide  a basis at the end to measure how much you have learned!
+The following Quiz is for me to assess what you already know about JavaScript.  It will not count towards you final grade, nor will I look down on you if you don't know any of it.  The point is to not waste time covering things that people already know.  It will also provide  a basis at the end to measure how much you have learned!
 
 .. qnum::
     :prefix: pretest-
