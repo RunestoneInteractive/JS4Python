@@ -25,8 +25,8 @@ In JavaScript this same pattern is simply written as:
     }
 
 Once again you can see that in JavaScript the curly braces define a block
-rather than indentation. In JavaScript the parenthesis around the condition
-are required because if is technically a function that evaluates to ``True``
+rather than indentation. In JavaScript, the parenthesis around the condition
+are required because ``if`` is technically a function that evaluates to ``True``
 or ``False``.
 
 if else
