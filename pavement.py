@@ -7,19 +7,23 @@ from runestone.server import get_dburl
 from sphinxcontrib import paverutils
 import pkg_resources
 from socket import gethostname
+from runestone import get_master_url
 
 sys.path.append(os.getcwd())
 
 home_dir = os.getcwd()
 master_url = None
 if master_url is None:
-    if gethostname() in ['runestone-deploy', 'rsbuilder']:
-        master_url = 'https://runestone.academy'
-    else:
-        master_url = 'http://127.0.0.1:8000'
+    master_url = get_master_url()
+
 master_app = 'runestone'
 serving_dir = "./build/JS4Python"
-dest = "../../static"
+dynamic_pages = True
+
+if dynamic_pages:
+    dest = "./published"
+else:
+    dest = "../../static"
 
 options(
     sphinx = Bunch(docroot=".",),
@@ -34,11 +38,16 @@ options(
                        'login_required':'false',
                        'appname':master_app,
                        'loglevel': 10,
+                       'dynamic_pages': True,
                        'course_url':master_url,
                        'use_services': 'true',
                        'python3': 'true',
+                       'default_ac_lang': 'javascript',
                        'dburl': 'postgresql://bmiller@localhost/runestone',
-                       'basecourse': 'JS4Python'
+                       'basecourse': 'JS4Python',
+                       'downloads_enabled': 'false',
+                       'enable_chatcodes': 'false',
+                       'allow_pairs': 'false'
                         }
     )
 )
