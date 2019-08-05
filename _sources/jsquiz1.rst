@@ -1,7 +1,7 @@
-Javascript Quiz 1
+JavaScript Quiz 1
 =================
 
-The following Quiz is for me to assess what you have learned about Javascript. Some questions have been repeated from the pretest and some are new.  A couple are **diabolical** so take your time and think them through. It is a **closed book** quiz.  You may not refer to any other page on the internet besides this one right here.  You may not copy and paste code snippets into any kind of Javascript interpreter.   This quiz is covered by the Luther College Honor Code, you may not cheat and you are expected to report anyone you see cheating.
+The following Quiz is for me to assess what you have learned about JavaScript. Some questions have been repeated from the pretest and some are new.  A couple are **diabolical** so take your time and think them through. It is a **closed book** quiz.  You may not refer to any other page on the internet besides this one right here.  You may not copy and paste code snippets into any kind of Javascript interpreter.  This quiz is covered by the Luther College Honor Code, you may not cheat and you are expected to report anyone you see cheating.
 
 Remember once you start you cannot leave the page or refresh the page. Doing so will cause the quiz to submit and you will be done.
 
