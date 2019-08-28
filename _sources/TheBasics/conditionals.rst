@@ -132,7 +132,7 @@ away with the following.
             writeln('B');
         } else  writeln('A');
        }
-   }
+   
 
 switch
 ------
