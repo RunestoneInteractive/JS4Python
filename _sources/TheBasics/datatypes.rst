@@ -118,7 +118,7 @@ examples shown in the table we will use a string variable called “str”.  Jav
                     Python               JavaScript                                                   Description
 ========================== ======================== =============================================================
                 ``str[3]``        ``str.charAt(3)``                              Return character in 3rd position
-              ``str[2:5]``   ``str.substring(2,4)``                              Return substring from 2nd to 4th
+              ``str[2:5]``   ``str.substring(2,5)``              Return substring from 2nd to (and including) 4th
               ``len(str)``           ``str.length``                               Return the length of the string
          ``str.find('x')``     ``str.indexOf('x')``                                Find the first occurrence of x
            ``str.split()``     ``str.split(/\s+/)``   Split the string on whitespace into a list/array of strings
