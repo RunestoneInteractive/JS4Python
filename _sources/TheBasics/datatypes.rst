@@ -172,7 +172,7 @@ The latest version of JavaScript adds two very welcome additions!  Multiline and
 .. activecode:: jsmultiline
     :language: javascript
 
-    mlstr = `Hello world
+    let mlstr = `Hello world
     this is a "multi-line."
     Isn't it nice.
     string.
