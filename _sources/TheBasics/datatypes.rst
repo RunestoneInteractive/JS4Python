@@ -195,8 +195,8 @@ The JavaScript formatted strings are called Template literals.  They are closest
 .. activecode:: jsformatstr
     :language: javascript
 
-    total = 10
-    mystr = `The total is ${total}`
+    const total = 10
+    let mystr = `The total is ${total}`
     writeln(mystr)
 
 JavaScript template literals can contain expressions and can contain dotted and indexed objects as well.  In fact there is even more power in the template literals than we have seen here, but we will delay further exploration until the web programming section.
