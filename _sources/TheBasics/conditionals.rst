@@ -165,7 +165,7 @@ program using a switch statement we would use the following:
            writeln('C');
            break;
        case 6:
-           writeln('A');
+           writeln('D');
            break;
        default:
            writeln('F');
