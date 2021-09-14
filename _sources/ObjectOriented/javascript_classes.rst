@@ -88,7 +88,7 @@ Before we go any further lets look at how we would have defined the Fraction cla
         return this.numerator + " / " + this.denominator;
     }
 
-    f = new Fraction(2,3);
+    let f = new Fraction(2,3);
     writeln("f is " + f)
 
 
